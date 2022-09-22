@@ -314,7 +314,7 @@ app.get('/manage', function (req, res) {
 });
 
 
-
+/*
 app.get('/404', function (req, res, next) {
     // trigger a 404 since no other middleware
     // will match /404 after this one, and we're not
@@ -357,4 +357,4 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('500', { error: err });
-});
+});*/
