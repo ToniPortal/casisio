@@ -1,0 +1,35 @@
+{
+  "name": "casisio",
+  "version": "1.0.0",
+  "description": "project d'année sio 2022/23",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bouftout/casisio.git"
+  },
+  "keywords": [
+    "sio",
+    "casino"
+  ],
+  "author": "Toni PASTRE",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Bouftout/casisio/issues"
+  },
+  "homepage": "https://github.com/Bouftout/casisio#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "helmet": "^6.0.0",
+    "mysql": "^2.18.1",
+    "path": "^0.12.7",
+    "validator": "^13.7.0",
+    "xxhash-addon": "^2.0.1"
+  }
+}
