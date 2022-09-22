@@ -74,7 +74,7 @@ app.get('/create', function (req, res) {
 });
 
 
-app.get('/play', function (req, res) {
+app.get('/game1', function (req, res) {
 
     res.render('game1');
 
