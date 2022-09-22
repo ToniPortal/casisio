@@ -7,7 +7,6 @@ const mysql = require('mysql'),
     validator = require('validator'),
     helmet = require("helmet"),
     { XXHash32, XXHash64, XXHash3 } = require('xxhash-addon'),
-    hasher3 = new XXHash3(require('fs').readFileSync('package-lock.json')),
     fs = require('fs');
 app = express();
 
@@ -23,10 +22,10 @@ server = app.listen(port, err => {
 });
 
 const connection = mysql.createConnection({ //connection bdd
-    host: 'mysql-noptestnop.alwaysdata.net',
-    user: '277383',
-    password: 'nerfakshan',
-    database: 'noptestnop_elisplay'
+    host: 'mysql-casinosio.alwaysdata.net',
+    user: 'casinosio',
+    password: 'totoni13',
+    database: 'casinosio_acc'
 });
 
 
@@ -59,23 +58,37 @@ app.use(session({
 
 // http://localhost:3000/
 app.get('/', function (req, res) {
+    res.render("accueil")
+});
+
+
+app.get('/login', function (req, res) {
     if (!req.session.loggedin) {
         res.render('login');
     } else {
-        
+
     }
+});
+app.get('/create', function (req, res) {
+    res.render("create")
+});
+
+
+app.get('/play', function (req, res) {
+
+    res.render('game1');
+
 });
 
 
 
+function hash3(passwords) {
 
+    const salute = `U@1${passwords}ds-`;
+    const buf_salute = Buffer.from(salute);
+    password = XXHash32.hash(buf_salute).toString('hex');
+    return password;
 
-
-function hash3(password) {
-    var buf_pass = Buffer.from(`${password}XHAMAC1guUCaI9jUu6E3s3SCORAfZQqAqt0ty8VGQL1yWfPnSoJuRiip5mmnlISkXFyxaLpQdNpqYZSDSxZ25IP1AUAncFOsbsMY11VfyeilrWiIjNPdQ3MAc2FSBjMVJbSrGj6`);
-    var passwords = hasher3.hash(buf_pass);
-    hasher3.reset();
-    return passwords;
 }
 
 app.get('/disco', function (req, res) {
@@ -93,78 +106,34 @@ app.post('/create', function (req, res) {
     let password = hash3(req.body.password);
     let username = validate(req.body.username);
 
-    if (username == " " || !username || username == "" || email != "") {
+    // Ensure the input fields exists and are not empty
+    if (username && password) {
+        // Execute SQL query that'll select the account from the database based on the specified username and password
 
+        //INSERT INTO `accounts` (`id`, `username`, `password`, `highscore1`) VALUES (1, 'test', 'test', 0);
 
-        if (ve(email)) {
-            let code = makeid(5);
-            emailfunc(email, "Confirmation de votre email", `Veuillez confirmer votre email en cliquant sur le button suivant : <br><a href="https://elisplay.herokuapp.com/confirm/${email}/${code}">Elisplay</button>`);
-            console.log(`http://localhost:3000/confirm/${email}/${code}`)
-            myJson = { email: `${email}`, code: `${code}`, pass: `${password}` };
-            list.push(myJson);
-
-            res.sendFile(path.join(`${__dirname}/Page web/verifemail.html`));
-        } else {
-            console.log("Email invalide")
-            res.send("Veuillez marquer un email valide");
-        }
-
-
-
-    } else if (email == " " || !email || email == "" || username != "") {
-
-        // Capture the input fields
-
-        // Ensure the input fields exists and are not empty
-        if (username && password) {
-            // Execute SQL query that'll select the account from the database based on the specified username and password
-
-            //INSERT INTO `accounts` (`id`, `username`, `password`, `highscore1`) VALUES (1, 'test', 'test', 0);
-
-            connection.query('SELECT username FROM accounts', function (error, resultaccount, fields) {
-                // If there is an issue with the query, output the error
-                if (error) {
-                    console.log(error);
-                    return res.redirect("/login");
-                }
-                var verifusername = false;
-                for (i = 0; i < Object.keys(resultaccount).length; i++) {
-                    if (resultaccount[i].username == username) {
-                        verifusername = true;
-                    }
-                }
-
-                if (verifusername == false) {
-                    connection.query(`INSERT INTO \`accounts\` (\`username\`, \`password\`, \`snake\`, \`tetris\`, \`td\`, \`court\`, \`brick\`, \`flappy\`, \`highscore1\`) VALUES ('${username}', '${password}', 0,0,0,0,0,0,0);`, [username, password], function (error, results, fields) {
-                        // If there is an issue with the query, output the error
-                        if (error) {
-                            console.log(error);
-                            return res.redirect("/login");
-                        }
-                        // If the account exists, redirect to the login page
-                        if (results.protocol41 == true) {
-                            req.session.loggedin = true;
-                            req.session.username = username;
-                            // rediction page play.
-                            res.redirect('/play');
-                        } else {
-                            res.redirect("/create")
-                        }
-                        res.end();
-                    });
-                } else {
-                    res.send('Il a déjà un utilisateur avec ce nom là !');
-                    res.end();
-                }
-            });
-
-
-
-
-        } else {
-            res.send('Veuillez entrer un Username et un Password!');
+        connection.query(`INSERT INTO \`accounts\` (\`username\`,\`password\`) VALUES ('${username}', '${password}');`, [username, password], function (error, results, fields) {
+            // If there is an issue with the query, output the error
+            if (error) {
+                console.log(error);
+                return res.redirect("/login");
+            }
+            // If the account exists, redirect to the login page
+            if (results.protocol41 == true) {
+                req.session.loggedin = true;
+                req.session.username = username;
+                // rediction page play.
+                res.redirect('/play');
+            } else {
+                res.redirect("/create")
+            }
             res.end();
-        }
+        });
+
+
+
+
+
     } else {
         res.redirect("/503")
     }
@@ -230,32 +199,32 @@ app.post('/auth', function (req, res) {
     let password = hash3(req.body.password);
     let username = validate(req.body.username);
 
-        console.log("pass " + password);
-        console.log("user " + username);
+    console.log("pass " + password);
+    console.log("user " + username);
 
-        if (username && password || username != undefined || password != undefined) {
-            connection.query(`SELECT * FROM accounts WHERE username = '${username}' AND password = '${password}'`, function (error, results, fields) {
-                if (error) {
-                    console.log(error);
-                    return res.redirect("/login");
-                }
-                if (results.length > 0) {
-                    req.session.loggedin = true;
-                    req.session.username = username;
-                    // rediction page play.
-                    res.redirect('/play');
-                } else {
-                    console.log("tome")
-                    res.send("Mauvais Nom d'utlisateur et/ou mauvais mot de passe<br>");
-                }
-                res.end();
-            });
-        } else {
-            res.send("Veuillez rentrer un Nom d'utlisateur et mot de passe<br>");
+    if (username && password || username != undefined || password != undefined) {
+        connection.query(`SELECT * FROM accounts WHERE username = '${username}' AND password = '${password}'`, function (error, results, fields) {
+            if (error) {
+                console.log(error);
+                return res.redirect("/login");
+            }
+            if (results.length > 0) {
+                req.session.loggedin = true;
+                req.session.username = username;
+                // rediction page play.
+                res.redirect('/play');
+            } else {
+                console.log("tome")
+                res.send("Mauvais Nom d'utlisateur et/ou mauvais mot de passe<br>");
+            }
             res.end();
-        }
+        });
+    } else {
+        res.send("Veuillez rentrer un Nom d'utlisateur et mot de passe<br>");
+        res.end();
+    }
 
-    
+
 
 });
 
