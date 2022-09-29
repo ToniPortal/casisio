@@ -32,10 +32,17 @@
         <label for="password">
             <i class="fas fa-lock"></i>
           </label>
-        <input type="newpassword" name="newpassword" placeholder="newpassword" id="newpassword" required />
+        <input type="password" name="newpassword" placeholder="newpassword" id="newpassword" required />
         <br><br>
        <button onclick="post()">Update</button>
        
+<br><br><br>
+
+<p>Image Upload</p>
+<form method="post" action="/post" enctype="multipart/form-data">
+  <input type="file" name="image" /><br /><br />
+  <button type="submit" name="upload">Upload</button>
+</form>
 
     </div>
 

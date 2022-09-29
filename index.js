@@ -16,7 +16,7 @@ app.set('view engine', 'ejs')
 
 app.use('/src', express.static(path.join(__dirname, 'src')))
 
-server = app.listen(port,ip, err => {
+server = app.listen(port, ip, err => {
     err ?
         console.log("Error in server setup") :
         console.log(`Worker ${process.pid} started\nServeur lancer sur: http://localhost:${port}`);
@@ -136,8 +136,8 @@ app.post('/create', function (req, res) {
 
     let prenom = validate(req.body.prenom);
     console.log(prenom)
-    if(prenom == "" || !prenom){
-prenom = makeid(5)
+    if (prenom == "" || !prenom) {
+        prenom = makeid(5)
     }
     let password = hash3(req.body.password);
     let username = validate(req.body.username);
@@ -181,11 +181,11 @@ app.post('/updatepass', function (req, res) {
     let password = hash3(req.body.password);
     let newpassword = hash3(req.body.newpassword);
 
-console.log(username)
-console.log(password)
-console.log(newpassword)
+    console.log(username)
+    console.log(password)
+    console.log(newpassword)
 
-    connection.query(`UPDATE accounts SET password=\'${newpassword}\' WHERE username =\'${username}\' AND password='${password}';`, function (error, results, fields) {
+    connection.query(`UPDATE Joueur SET password=\'${newpassword}\' WHERE username =\'${username}\' AND password='${password}';`, function (error, results, fields) {
         // If there is an issue with the query, output the error
         if (error) {
             console.log(error);
@@ -218,6 +218,21 @@ app.get('/manage', function (req, res) {
 
 });
 
+const upload = require('./uploadMiddleware');
+const Resize = require('./Resize');
+
+app.post('/post', upload.single('image'), async function (req, res) {
+console.log(centralusername)
+    const imagePath = path.join(__dirname, '/src/img');
+    const fileUpload = new Resize(imagePath,centralusername);
+    if (!req.file) {
+      res.status(401).json({error: 'Please provide an image'});
+    }
+    const filename = await fileUpload.save(req.file.buffer);
+    return res.status(200).json({ name: filename });
+  });
+
+
 function makeid(length) {
     var result = '';
     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -232,6 +247,7 @@ function validate(string) {
     return validator.escape(string);
 }
 
+var centralusername = "none";
 
 app.post('/auth', function (req, res) {
     let password = hash3(req.body.password);
@@ -249,6 +265,7 @@ app.post('/auth', function (req, res) {
             if (results.length > 0) {
                 req.session.loggedin = true;
                 req.session.username = username;
+                centralusername = username;
                 // rediction page play.
                 res.redirect('/play');
             } else {
