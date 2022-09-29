@@ -7,7 +7,7 @@
     ],
     "routes": [
         {
-          "src": "/views(.*)",
+          "src": "/(.*)",
           "dest": "index.js"
         }
     ]
