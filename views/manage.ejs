@@ -14,20 +14,28 @@
         <%= username %>
     </h1>
     <div class="login">
-        <h1>Update Password</h1>
+        <h1>Update Password And Delete</h1>
 
         <label for="username">
           <!-- font awesome icon -->
           <i class="fas fa-user"></i>
         </label>
-        <input type="text" name="username" placeholder="Username" id="username" required />
+        <input type="text" name="username" placeholder="Username" id="username" value="<%= username %>" required readonly/>
         <br>
         <label for="password">
           <i class="fas fa-lock"></i>
         </label>
         <input type="password" name="password" placeholder="Password" id="password" required />
-        <button onclick="post()">Update</button>
-        <button onclick="Delete()">Delete</button>
+<br><br>
+<button onclick="Delete()">Delete</button>
+<br><br>
+        <label for="password">
+            <i class="fas fa-lock"></i>
+          </label>
+        <input type="newpassword" name="newpassword" placeholder="newpassword" id="password" required />
+        <br><br>
+       <button onclick="post()">Update</button>
+       
 
     </div>
 
@@ -49,11 +57,11 @@
                     },
                 })
                 // Converting to JSON
-                .then((response) => response.json())
+                .then((response) => console.log(response))
                 // Displaying results to console
                 .then((json) => {
                     alert("Updated Password");
-
+                    document.location.href = "/disco";
                 }).catch((error) => {
                     console.error(error);
                     alert("Votre mot de passe n'a pas pu être supprimée.");
@@ -74,10 +82,10 @@
                         password: document.getElementById("password").value,
                     }),
                 })
-                .then((response) => response.json())
+                .then((response) => console.log(response))
                 .then((json) => {
                     alert("Delete account");
-
+                    document.location.href = "/disco";
                 }).catch((error) => {
                     console.error(error);
                     alert("Votre compte n'a pas pu être supprimé");

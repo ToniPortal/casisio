@@ -126,14 +126,19 @@ function hash3(passwords) {
 
     const salute = `U@1${passwords}ds-`;
     const buf_salute = Buffer.from(salute);
-    password = XXHash32.hash(buf_salute).toString('hex');
-    return password;
+    const newpassword = XXHash32.hash(buf_salute).toString('hex');
+    return validate(newpassword);
 
 }
 
 
 app.post('/create', function (req, res) {
 
+    let prenom = validate(req.body.prenom);
+    console.log(prenom)
+    if(prenom == "" || !prenom){
+prenom = makeid(5)
+    }
     let password = hash3(req.body.password);
     let username = validate(req.body.username);
 
@@ -143,7 +148,7 @@ app.post('/create', function (req, res) {
 
         //INSERT INTO `accounts` (`id`, `username`, `password`, `highscore1`) VALUES (1, 'test', 'test', 0);
 
-        connection.query(`INSERT INTO \`accounts\` (\`username\`,\`password\`) VALUES ('${username}', '${password}');`, [username, password], function (error, results, fields) {
+        connection.query(`INSERT INTO \`Joueur\`(\`prenom\`, \`username\`, \`password\`) VALUES ('${prenom}','${username}', '${password}')`, function (error, results, fields) {
             // If there is an issue with the query, output the error
             if (error) {
                 console.log(error);
@@ -199,16 +204,19 @@ app.post('/updatepass', function (req, res) {
 
 });
 
-app.get('/updatepass', function (req, res) {
+app.get('/manage', function (req, res) {
 
     if (req.session.loggedin) {
 
-        res.sendFile(path.join(__dirname + '/Page web/manage.html'));
+        res.render('manage', {
+            username: usernames
+        });
 
     } else {
         // Render login template
         res.redirect('/login')
     }
+
 });
 
 function makeid(length) {
@@ -234,7 +242,7 @@ app.post('/auth', function (req, res) {
     console.log("user " + username);
 
     if (username && password || username != undefined || password != undefined) {
-        connection.query(`SELECT * FROM accounts WHERE username = '${username}' AND password = '${password}'`, function (error, results, fields) {
+        connection.query(`SELECT * FROM Joueur WHERE username = '${username}' AND password = '${password}'`, function (error, results, fields) {
             if (error) {
                 console.log(error);
                 return res.redirect("/login");
@@ -275,7 +283,7 @@ app.post('/updatepass', function (req, res) {
     }
 
 
-    connection.query(`UPDATE accounts SET password=\'${password}\' WHERE username =\'${username}\';`, function (error, results, fields) {
+    connection.query(`UPDATE Joueur SET password=\'${password}\' WHERE username =\'${username}\';`, function (error, results, fields) {
         // If there is an issue with the query, output the error
         if (error) {
             console.log(error);
@@ -299,13 +307,13 @@ app.delete('/deleteaccount', function (req, res) {
     let password = hash3(req.body.password);
     console.log("deleteaccount : " + username + "   " + password)
     if (username && password || username != undefined || password != undefined) {
-        connection.query(`SELECT * FROM accounts WHERE username = '${username}' AND password = '${password}'`, function (error, results, fields) {
+        connection.query(`SELECT * FROM Joueur WHERE username = '${username}' AND password = '${password}'`, function (error, results, fields) {
             if (error) {
                 console.log(error);
                 return res.status(500).json(error);
             }
             if (results.length > 0) {
-                connection.query(`DELETE FROM accounts WHERE username = '${username}'`, function (error, results, fields) {
+                connection.query(`DELETE FROM Joueur WHERE username = '${username}'`, function (error, results, fields) {
                     if (error) {
                         console.log(error);
                         return res.status(500).json(error);
