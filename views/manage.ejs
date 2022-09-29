@@ -32,7 +32,7 @@
         <label for="password">
             <i class="fas fa-lock"></i>
           </label>
-        <input type="newpassword" name="newpassword" placeholder="newpassword" id="password" required />
+        <input type="newpassword" name="newpassword" placeholder="newpassword" id="newpassword" required />
         <br><br>
        <button onclick="post()">Update</button>
        
@@ -49,6 +49,7 @@
                     body: JSON.stringify({
                         username: document.getElementById("username").value,
                         password: document.getElementById("password").value,
+                        newpassword: document.getElementById("newpassword").value
                     }),
 
                     // Adding headers to the request

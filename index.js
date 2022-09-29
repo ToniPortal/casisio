@@ -179,14 +179,13 @@ app.post('/updatepass', function (req, res) {
 
     let username = validate(req.body.username);
     let password = hash3(req.body.password);
+    let newpassword = hash3(req.body.newpassword);
 
-    if (typeof username != "string" || (password).lastIndexOf("DROP") != -1) {
-        res.send("Paramètre invalide");
-        res.end();
-        return;
-    }
+console.log(username)
+console.log(password)
+console.log(newpassword)
 
-    connection.query(`UPDATE accounts SET password=\'${password}\' WHERE username =\'${username}\';`, function (error, results, fields) {
+    connection.query(`UPDATE accounts SET password=\'${newpassword}\' WHERE username =\'${username}\' AND password='${password}';`, function (error, results, fields) {
         // If there is an issue with the query, output the error
         if (error) {
             console.log(error);
