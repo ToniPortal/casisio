@@ -11,6 +11,8 @@ const mysql = require('mysql'),
     fs = require('fs');
 app = express();
 
+//https://fr.w3docs.com/tools/code-editor/3886
+
 // Render chat
 app.set('view engine', 'ejs')
 
@@ -218,23 +220,31 @@ app.get('/manage', function (req, res) {
 
 });
 
-const upload = require('./uploadMiddleware');
-const Resize = require('./Resize');
 
-app.post('/post', upload.single('image'), async function (req, res) {
-console.log(centralusername)
-    const imagePath = path.join(__dirname, '/src/img');
-    const fileUpload = new Resize(imagePath,centralusername);
-    if (!req.file) {
-      res.status(401).json({error: 'Please provide an image'});
+const multer = require('multer')
+
+var storage = multer.diskStorage(
+    {
+        destination: './src/people/',
+        filename: function ( req, file, cb ) {
+            //req.body is empty...
+            //How could I get the new_file_name property sent from client here?
+            cb( null,  `${centralusername}.jpg`);
+        }
     }
-    const filename = await fileUpload.save(req.file.buffer);
-    return res.status(200).json({ name: filename });
-  });
+);
+
+
+const upload = multer({ storage: storage })
+
+app.post('/post',upload.single('image'), async function (req, res) {
+   // res.status(200).send(req.file)
+    return res.redirect("/play")
+});
 
 
 function makeid(length) {
-    var result = '';
+    var result = null;
     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;
     for (var i = 0; i < length; i++) {

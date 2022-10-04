@@ -1,0 +1,101 @@
+@import url("https://fonts.googleapis.com/css2?family=Advent+Pro:wght@200&family=Dancing+Script&display=swap");
+
+body {
+  font-family: "Advent Pro", sans-serif;
+  padding: 0%;
+  margin: 0%;
+  background-color: #524a3a;
+}
+
+footer {
+  color: #fffae1;
+  padding: 20px 0 10px 0;
+  text-align: center;
+}
+
+/* Bordered form */
+form {
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+/* Full-width inputs */
+input {
+  border: none;
+  width: 55%;
+  padding: 15px 10px;
+  margin: 1px 0;
+  font-size: 1.2em;
+  font-family: "Advent Pro", sans-serif;
+  border-radius: 8px;
+}
+
+/* Set a style for all buttons */
+input[type="submit"] {
+  border: none;
+  width: 55%;
+  padding: 15px 10px;
+  margin: 1px 0;
+  font-size: 1.2em;
+  font-family: "Advent Pro", sans-serif;
+  border-radius: 8px;
+}
+input[type="submit"]:hover {
+  background-color: #e55039;
+  color: #fffae1;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+#deuxiemetrait {
+  height: 1px;
+  width: 75%;
+  background-color: #fffae1;
+  margin: 60px auto;
+}
+#copyrightandicons {
+  display: flex;
+  margin-bottom: 20px;
+  padding: 0 10%;
+}
+#copyright {
+  width: 50%;
+  text-align: left;
+  color: #fffae1;
+}
+
+nav {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+header li:hover {
+  background-color: #808080;
+}
+
+header li {
+  font-family: "Advent Pro", sans-serif;
+  float: left;
+  font-size: 1.2em;
+}
+
+header li a {
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  padding: 18px 16px;
+}
+
+ul {
+  margin: 0%;
+  padding: 0%;
+}
+
+li {
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
