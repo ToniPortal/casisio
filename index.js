@@ -45,7 +45,6 @@ app.use(
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'Page web')));
 app.disable('x-powered-by');
 app.use(session({
     cookieName: 'session',

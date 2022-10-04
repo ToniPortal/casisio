@@ -1,11 +1,16 @@
 
 window.onload = function () {
 
-document
-.getElementById("manageaccount")
-.addEventListener("click", function (e) {
-  e.preventDefault();
-  document.location.href = "/manage";
-});
+  document
+    .getElementById("manageaccount")
+    .addEventListener("click", function (e) {
+      e.preventDefault();
+      document.location.href = "/manage";
+    });
+
+  (document.querySelectorAll("img")[0]).addEventListener("click", function (e) {
+    e.preventDefault();
+    document.location.href = "/game1";
+  });
 
 }

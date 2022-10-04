@@ -1,16 +1,45 @@
-Bonjour : <%= username %> PLAY
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head'); %>
+    <script src="../src/js/play.js"></script>
+  </head>
+  <body>
+    <header class="hero">
+      <%- include('./partials/header'); %>
+      <br><br>
+   <h1> Bonjour : <span><%= username %></span></h1>
 
-<script src="../src/js/play.js"></script>
+    <button id="manageaccount">Manage Account</button>
 
-<button id="manageaccount">Manage Account</button>
+    <section class="shop" id="shop" >
+      <div class="container">
+        <div class="box">
+          <img src="../src/img/roulette4.png">
+          <h4>La roulette</h4>
+        </div>
 
-<a href="/disco">Disconnect</a>
+        <div class="box">
+          <img src="../src/img/roulette4.png">
+          <h4>La roulette</h4>
+        </div>
 
-<a href="/manage">Manage</a>
+        <div class="box">
+          <img src="../src/img/roulette4.png">
+          <h4>La roulette</h4>
+        </div>
 
-<a href="/game1">Premier jeu !</a>
+       
+      </div>
 
-<img
-  src="../src/people/<%=username%>.jpg"
-  alt="ImgDeProfil" width="200" height="200"
-/>
+    </section>
+
+    <img
+      src="../src/people/<%=username%>.jpg"
+      alt="ImgDeProfil"
+      width="0"
+      height="0"
+    />
+  </header>
+  </body>
+</html>
