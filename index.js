@@ -57,6 +57,18 @@ app.use(session({
     saveUninitialized: true
 }));
 
+function renderpage(name, req, res) {
+    if (req.session.loggedin) {
+        let usernames = req.session.username;
+
+        res.render(name, {
+            username: usernames
+        });
+    } else {
+        res.redirect("/login");
+    }
+}
+
 
 // http://localhost:3000/
 app.get('/', function (req, res) {
@@ -77,11 +89,9 @@ app.get('/login', function (req, res) {
 });
 
 app.get('/play', function (req, res) {
-    let usernames = req.session.username;
 
-    res.render('play', {
-        username: usernames
-    });
+    renderpage('play', req, res);
+
 });
 
 
@@ -93,26 +103,25 @@ app.get('/create', function (req, res) {
 
 app.get('/game1', function (req, res) {
 
-    res.render('game1');
-
+    renderpage('game1', req, res);
 });
 
 app.get('/manage', function (req, res) {
 
-    if (req.session.loggedin) {
-        let usernames = req.session.username;
 
-        res.render('manage', {
-            username: usernames
-        });
-
-    } else {
-        // Pas connectée.
-        res.redirect("/login")
-    }
+    renderpage('manage', req, res);
 
 });
 
+app.post('/con', function (req, res) {
+    console.log("acces con")
+    if (req.session.loggedin) {
+        return res.json({ "connect": true })
+    } else {
+        return res.json({ "connect": false })
+    }
+
+})
 
 
 app.get('/disco', function (req, res) {
@@ -138,31 +147,29 @@ function hash3(passwords) {
 
 app.post('/create', function (req, res) {
 
+    //Vérification de la sécurité de l'entrée utilisateur avec validator.
     let prenom = validate(req.body.prenom);
-    console.log(prenom)
     if (prenom == "" || !prenom) {
-        prenom = makeid(5)
+        prenom = makeid(5) // si le prenom est vide ou n'existe pas, on lui donne un prenom aléatoire
     }
-    let password = hash3(req.body.password);
     let username = validate(req.body.username);
+    let password = hash3(req.body.password); //hashage du mot de passe
 
-    // Ensure the input fields exists and are not empty
+
+    // Vérification de l'existence du compte
     if (username && password) {
-        // Execute SQL query that'll select the account from the database based on the specified username and password
-
-        //INSERT INTO `accounts` (`id`, `username`, `password`, `highscore1`) VALUES (1, 'test', 'test', 0);
-
+        //Exemple d'insertion sql : INSERT INTO `accounts` (`id`, `username`, `password`, `highscore1`) VALUES (1, 'test', 'test', 0);
         connection.query(`INSERT INTO \`Joueur\`(\`prenom\`, \`username\`, \`password\`) VALUES ('${prenom}','${username}', '${password}')`, function (error, results, fields) {
             // If there is an issue with the query, output the error
             if (error) {
                 console.log(error);
-                return res.redirect("/login");
+                return res.redirect("/login"); // Si erreur, on redirige vers la page de connexion
             }
-            // If the account exists, redirect to the login page
-            if (results.protocol41 == true) {
+
+            if (results.protocol41 == true) { // Si le compte existe déjà on enregistre son username dans la session, et fait que il soit loggé.
                 req.session.loggedin = true;
                 req.session.username = username;
-                // rediction page play.
+                // redirection vers la page de jeu
                 res.redirect('/play');
             } else {
                 res.redirect("/create")
@@ -170,12 +177,8 @@ app.post('/create', function (req, res) {
             res.end();
         });
 
-
-
-
-
     } else {
-        res.redirect("/404")
+        res.redirect("/404") // Si erreur, on redirige vers la page de connexion
     }
 });
 
