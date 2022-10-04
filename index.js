@@ -118,9 +118,12 @@ app.get('/manage', function (req, res) {
 
 app.get('/disco', function (req, res) {
 
-    req.session.destroy();
-
-    res.redirect("login")
+    if (req.session.loggedin) {
+        req.session.destroy();
+        res.redirect("/")
+    } else {
+        res.redirect("/")
+    }
 
 })
 
@@ -226,10 +229,10 @@ const multer = require('multer')
 var storage = multer.diskStorage(
     {
         destination: './src/people/',
-        filename: function ( req, file, cb ) {
+        filename: function (req, file, cb) {
             //req.body is empty...
             //How could I get the new_file_name property sent from client here?
-            cb( null,  `${centralusername}.jpg`);
+            cb(null, `${centralusername}.jpg`);
         }
     }
 );
@@ -237,8 +240,8 @@ var storage = multer.diskStorage(
 
 const upload = multer({ storage: storage })
 
-app.post('/post',upload.single('image'), async function (req, res) {
-   // res.status(200).send(req.file)
+app.post('/post', upload.single('image'), async function (req, res) {
+    // res.status(200).send(req.file)
     return res.redirect("/play")
 });
 
