@@ -1,101 +1,90 @@
-@import url("https://fonts.googleapis.com/css2?family=Advent+Pro:wght@200&family=Dancing+Script&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;400;500;600;700&display=swap');
 
-body {
-  font-family: "Advent Pro", sans-serif;
-  padding: 0%;
-  margin: 0%;
-  background-color: #524a3a;
-}
-
-footer {
-  color: #fffae1;
-  padding: 20px 0 10px 0;
-  text-align: center;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Josefin Sans', sans-serif;
 }
 
-/* Bordered form */
-form {
-  margin: 0 auto;
-  max-width: 900px;
-}
-
-/* Full-width inputs */
-input {
-  border: none;
-  width: 55%;
-  padding: 15px 10px;
-  margin: 1px 0;
-  font-size: 1.2em;
-  font-family: "Advent Pro", sans-serif;
-  border-radius: 8px;
-}
-
-/* Set a style for all buttons */
-input[type="submit"] {
-  border: none;
-  width: 55%;
-  padding: 15px 10px;
-  margin: 1px 0;
-  font-size: 1.2em;
-  font-family: "Advent Pro", sans-serif;
-  border-radius: 8px;
-}
-input[type="submit"]:hover {
-  background-color: #e55039;
-  color: #fffae1;
-  cursor: pointer;
-  transition: 0.3s ease-in-out;
-}
-
-#deuxiemetrait {
-  height: 1px;
-  width: 75%;
-  background-color: #fffae1;
-  margin: 60px auto;
-}
-#copyrightandicons {
-  display: flex;
-  margin-bottom: 20px;
-  padding: 0 10%;
-}
-#copyright {
-  width: 50%;
-  text-align: left;
-  color: #fffae1;
-}
-
-nav {
-  overflow: hidden;
-  position: fixed;
+.hero {
+  height: 120vh;
   width: 100%;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url(../img/casino.jpg);
+  background-size: cover;
+  background-repeat: no-repeat no-repeat;
 }
 
-header li:hover {
-  background-color: #808080;
+.box{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  transform: translate(-50%,-50%);
+  padding: 50px;
+  background: #101010;
+  border-radius: 15px;
 }
 
-header li {
-  font-family: "Advent Pro", sans-serif;
-  float: left;
-  font-size: 1.2em;
-}
-
-header li a {
-  text-decoration: none;
-  display: block;
+.box h1{
+  color: #fff;
   text-align: center;
-  padding: 18px 16px;
+  margin-bottom: 30px;
+  font-weight: 500;
+  text-transform: capitalize;
 }
 
-ul {
-  margin: 0%;
-  padding: 0%;
+.box .unInput{
+  position: relative;
 }
 
-li {
-  list-style-type: none;
+.box .unInput input{
+  color: #fff;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  letter-spacing: 1px;
+  margin-bottom: 30px;
+  border: none;
+  background: transparent;
+  border-bottom: 1px solid #fff;
+  outline: none;
 }
-a {
-  text-decoration: none;
-  color: black;
+
+.box .unInput label{
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #726e7c;
+  letter-spacing: 1px;
+  font-size: 16px;
+  padding: 12px 0;
+  transition: .4s;
+}
+
+.box input[type="submit"]{
+  border: none;
+  outline: none;
+  background: #ea1538;
+  color: #201a30;
+  padding: 8px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.box input[type="submit"]:hover{
+  transform: scale(1.1);
+  transition: .3s;
+  cursor: pointer;
+}
+
+.box .unInput input:focus~label,
+.box .unInput input:valid~label{
+  top:-20px;
+  left: 0;
+  color:#ea1538;
+  font-size: 12px;
 }

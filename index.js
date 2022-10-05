@@ -1,3 +1,4 @@
+//Tout les npm utilisé pour le projet.
 const mysql = require('mysql'),
     express = require('express'),
     session = require('express-session'),
@@ -9,9 +10,7 @@ const mysql = require('mysql'),
     helmet = require("helmet"),
     { XXHash32, XXHash64, XXHash3 } = require('xxhash-addon'),
     fs = require('fs');
-app = express();
-
-//https://fr.w3docs.com/tools/code-editor/3886
+    app = express();
 
 // Render chat
 app.set('view engine', 'ejs')
@@ -32,8 +31,8 @@ const connection = mysql.createConnection({ //connection bdd
 });
 
 
-//SECURITER QUI BLOQUE TOUT:
 /*
+SECURITER QUI BLOQUE TOUT:
 app.use(
     helmet.contentSecurityPolicy({
         directives: {
@@ -42,10 +41,10 @@ app.use(
         },
     })
 );*/
-app.use(cookieParser());
-app.use(express.json());
+app.use(cookieParser()); //Pour pouvoir utiliser les cookie.
+app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true }));
-app.disable('x-powered-by');
+app.disable('x-powered-by'); //Désactive le header x-powered-by
 app.use(session({
     cookieName: 'session',
     secret: 'eg[isfd-8yF9-7wwzd2315df{}+Ijsli;;to8',
@@ -57,6 +56,8 @@ app.use(session({
     saveUninitialized: true
 }));
 
+//Function pour render la page grâce a ejs et envoyer les données.
+//Ne pas oublier de lui donner un nom(page voulu qui se situe dans /views),req,res en paramètre.
 function renderpage(name, req, res) {
     if (req.session.loggedin) {
         let usernames = req.session.username;

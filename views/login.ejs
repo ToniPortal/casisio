@@ -6,30 +6,30 @@
     <meta name="viewport" content="width=device-width">
     <title>Login</title>
     <script src="../src/js/login.js"></script>
-
+    <link rel="stylesheet" href="../src/css/connexion.css">
 </head>
 
-<body>
+<body class="hero">
     <button id="createbtn">Create New Account</button>
 
-    <div class="login">
-        <h1>Login</h1>
-        <form action="/auth" method="post">
+    <div class="main">
+        <div class="box">
+            <h1>Login</h1>
+            <form method="/auth" action="post">
+                <div class="unInput">
+                    <input type="text" name="username" autocomplete="off" required>
+                    <label>Username</label>
+                </div>
 
-            <div id="emaildiv" style="display: none;">
-                <input type="text" name="email" placeholder="Email" id="email">
+                <div class="unInput">
+                    <input type="text" name="password" autocomplete="off" required>
+                    <label>Password</label>
+                </div>
 
-            </div>
-
-            <div id="usernamediv">
-                <input type="text" name="username" placeholder="Pseudonyme" id="username" required>
-            </div>
-
-
-            <input type="password" name="password" placeholder="Mot de passe" id="password" required>
-            <br><br>
-            <input id="btnlog" type="submit" value="Login">
-        </form>
+                <input id="btnlog" type="submit" value="Se connecter">
+            
+            </form>
+        </div>
     </div>
 
 </body>
