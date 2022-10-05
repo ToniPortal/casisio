@@ -105,6 +105,7 @@ app.get('/create', function (req, res) {
 app.get('/game1', function (req, res) {
 
     renderpage('game1', req, res);
+
 });
 
 app.get('/manage', function (req, res) {
