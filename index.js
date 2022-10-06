@@ -8,7 +8,7 @@ const mysql = require('mysql'),
     ip = (process.env.IP || process.env.ALWAYSDATA_HTTPD_IP),
     validator = require('validator'),
     helmet = require("helmet"),
-    { XXHash32, XXHash64, XXHash3 } = require('xxhash-addon'),
+    { XXHash32 } = require('xxhash-addon'),
     fs = require('fs');
     app = express();
 
@@ -98,7 +98,9 @@ app.get('/play', function (req, res) {
 
 
 app.get('/create', function (req, res) {
+
     res.render("create")
+
 });
 
 
@@ -110,12 +112,12 @@ app.get('/game1', function (req, res) {
 
 app.get('/manage', function (req, res) {
 
-
     renderpage('manage', req, res);
 
 });
 
 app.post('/con', function (req, res) {
+
     console.log("acces con")
     if (req.session.loggedin) {
         return res.json({ "connect": true })
@@ -145,6 +147,18 @@ function hash3(passwords) {
     return validate(newpassword);
 
 }
+
+app.post("/gamecreate", function (req, res) {
+
+    let username = validate(req.body.username);
+    let mise = validate(req.body.mise);
+    let result = validate(req.body.result);
+
+    connection.query(`INSERT INTO \`Jouer\`(\`idjoueur\`,\`idjeu\`, \`resultat\`, \`DateComplete\`,\`Mise\`) VALUES ('${username}','1','${result}', '${Date.now}','${mise}')`, function (error, results, fields) {
+
+    });
+
+});
 
 
 app.post('/create', function (req, res) {
@@ -190,18 +204,12 @@ app.post('/updatepass', function (req, res) {
     let password = hash3(req.body.password);
     let newpassword = hash3(req.body.newpassword);
 
-    console.log(username)
-    console.log(password)
-    console.log(newpassword)
-
+    // Update du password du joueurs
     connection.query(`UPDATE Joueur SET password=\'${newpassword}\' WHERE username =\'${username}\' AND password='${password}';`, function (error, results, fields) {
-        // If there is an issue with the query, output the error
         if (error) {
             console.log(error);
             return res.redirect("/login");
         }
-        // If the account exists
-
         if (results.protocol41 == true) {
 
         } else {
@@ -309,27 +317,23 @@ app.post('/updatepass', function (req, res) {
     let username = validate(req.body.username);
     let password = hash3(req.body.password);
 
-    if (typeof username != "string" || (password).lastIndexOf("DROP") != -1) {
-        res.send("Paramètre invalide");
-        res.end();
-        return;
-    }
-
 
     connection.query(`UPDATE Joueur SET password=\'${password}\' WHERE username =\'${username}\';`, function (error, results, fields) {
         // If there is an issue with the query, output the error
         if (error) {
             console.log(error);
             return res.status(500).json(error);
-        }
-        // If the account exists
-
-        if (results.protocol41 == true) {
-
         } else {
-            res.redirect("/manage")
+            // If the account exists
+            console.log(results.protocol41)
+
+            if (results.protocol41 == true) {
+
+            } else {
+                res.redirect("/manage")
+            }
+            res.end();
         }
-        res.end();
     });
 
 });
@@ -338,7 +342,7 @@ app.delete('/deleteaccount', function (req, res) {
 
     let username = validate(req.body.username);
     let password = hash3(req.body.password);
-    console.log("deleteaccount : " + username + "   " + password)
+
     if (username && password || username != undefined || password != undefined) {
         connection.query(`SELECT * FROM Joueur WHERE username = '${username}' AND password = '${password}'`, function (error, results, fields) {
             if (error) {
@@ -371,9 +375,6 @@ app.delete('/deleteaccount', function (req, res) {
 
 
 app.get('/404', function (req, res, next) {
-    // trigger a 404 since no other middleware
-    // will match /404 after this one, and we're not
-    // responding here
     next();
 });
 
@@ -404,9 +405,6 @@ app.use(function (req, res, next) {
         }
     })
 });
-
-
-
 
 //500 error render
 app.use(function (err, req, res, next) {
