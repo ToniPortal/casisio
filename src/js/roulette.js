@@ -40,25 +40,43 @@ window.onload = function () {
 
 	});
 
-	function imgvis(nbroul, visible) {
-		var img = document.getElementsByTagName("img")[nbroul];
+	function imgvis(id, visible) {
+		var img = document.getElementById(id);
 		img.style.visibility = (visible ? 'visible' : 'hidden');
 	}
 
-	function stop() {
+
+
+	async function stop() {
 		console.log("stop")
 		fcintertime(1);
 		let choix = [];
 		let nbroul = document.getElementsByClassName("roulette").length;
-		let nbimg = document.querySelectorAll("img").length;
+		let nbgagnant = 0;
 		for (let i = 0; i < nbroul; i++) {
-			choix.push(random(1, 5));
+			choix.push(random(0, 4));
 		}
-		console.log(nbimg)
+		console.log("Choix: " + choix)
 
-		imgvis(choix[0], false);
-		//	imgvis(Number(choix[0] + nbimg) ,false);
-		//	imgvis(Number(choix[0] + nbimg + nbimg) ,false);
+		const set = await new Set(choix);
+
+		const duplicates = choix.filter(item => {
+			if (set.has(item)) {
+				set.delete(item);
+			} else {
+				nbgagnant++
+				return item;
+			}
+		});
+
+		imgvis("cont", false);
+
+		alert("Gagnant: " + nbgagnant)
+		
+console.log(document.querySelectorAll("img")[choix[0]])
+document.querySelectorAll("img")[choix[0]].style.visibility = "visible";
+document.querySelectorAll("img")[choix[1] + 5].style.visibility = "visible";
+document.querySelectorAll("img")[choix[1] + 10].style.visibility = "visible";
 	}
 
 
