@@ -20,7 +20,8 @@ window.onload = async function () {
         console.log(connection);
 
         if (connection === true) { // Si la connexion est établie
-            started = 0;
+            document.getElementById("ins").remove()
+started = 0;
         } else if (connection === false) { // Si la connexion n'est pas établie
             document.getElementById("disco").remove();  // Supprimer le bouton de déconnexion
         }
