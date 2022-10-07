@@ -39,6 +39,14 @@ section{
     margin-bottom: 20px;
 }
 
+.contact-form p{
+    color: #c6c9d8bf;
+    letter-spacing: 1px;
+    line-height: 26px;
+    font-style: 1.1rem;
+    margin-bottom: 1.8rem;
+}
+
 span{
     color: #f9004d;
 }
