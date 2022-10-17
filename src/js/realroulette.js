@@ -100,7 +100,7 @@ window.onload = function () {
         const ggoupas = document.getElementById("ggoupas");
         console.log(texte)
 
-        var couleur = document.getElementsByName('couleur');
+        var couleur = document.getElementsByName('couleur'); // form input radio noir ou rouge ou vert
 
         const nbcbatu = Number(document.getElementById("combienatu").innerText);
         const mise = Number(document.getElementById("mise").value)
@@ -116,24 +116,30 @@ window.onload = function () {
                 console.log("gagné")
                 ggoupas.innerText = "Vous avez gagné";
                 envoie(document.getElementById("mise").value, doublemise);
-                combienatu();
+
+                document.getElementById("combienatu").innerText = doublemise;
+                
               } else {
                 console.log("perdu")
                 ggoupas.innerText = "Vous avez perdu";
                 envoie(document.getElementById("mise").value, nbcbatu - mise);
-                combienatu();
+
+                document.getElementById("combienatu").innerText = nbcbatu - mise;
+
               }
             } else if (i.id == "noir") {
               if (texte.indexOf("BLACK") != -1) {
                 console.log("gagné")
                 ggoupas.innerText = "Vous avez gagné";
                 envoie(document.getElementById("mise").value, doublemise);
-                combienatu();
+
+                document.getElementById("combienatu").innerText = doublemise;
+
               } else {
                 console.log("perdu")
                 ggoupas.innerText = "Vous avez perdu";
                 envoie(document.getElementById("mise").value, nbcbatu - mise);
-                combienatu();
+                document.getElementById("combienatu").innerText = nbcbatu - mise;
               }
             }
           }

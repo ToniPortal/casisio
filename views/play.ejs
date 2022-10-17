@@ -1,42 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <%- include('./partials/head'); %>
+    <link rel="stylesheet" href="../src/css/play.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <script src="../src/js/play.js"></script>
+    <meta charset="UTF-8" />
+    <title>Casisio</title>
   </head>
   <body>
-    <header class="hero">
-      <%- include('./partials/header'); %>
-      <br /><br />
-      <h1>Bonjour : <span><%= username %></span></h1>
-
-      <button id="manageaccount">Manage Account</button>
-
-      <section class="shop" id="shop">
+    <div class="hero">
+      <nav>
+        <h2 class="logo">Casi<span>sio</span></h2>
+        <ul>
+          <li><a class="active" href="/play">Nos jeux</a></li>
+          <li><a href="/about">A propos</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+        <div class="btn">
+          <img class="profil spanbjr" src="../src/people/<%=username%>.jpg"><span id="bjruser" class="spanbjr">Bonjour <%= username %></span> </a>
+         
+          <a href="/disco"class="connexion">Se deconnecter</a>
+        </div>
+      </nav>
+      <section class="shop" >
         <div class="container">
           <div class="box">
-            <img src="../src/img/roulette3.png" />
+            <img id="jack" src="../src/img/jackpot.png">
             <h4>Jackpot</h4>
           </div>
-
+  
           <div class="box">
-            <img src="../src/img/roulette4.png" />
+            <img id="roul" src="../src/img/roulette4.png">
             <h4>La roulette</h4>
           </div>
-
-          <div class="box">
-            <img src="../src/img/roulette4.png" />
-            <h4>La roulette</h4>
-          </div>
+  
+  
+         
         </div>
-      </section>
 
-      <img
-        src="../src/people/<%=username%>.jpg"
-        alt="ImgDeProfil"
-        width="30"
-        height="30"
-      />
-    </header>
+      </section>
+    </div>
+    
   </body>
 </html>

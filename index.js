@@ -379,6 +379,7 @@ function validate(string) {
 var centralusername = "none";
 
 app.post('/auth', function (req, res) {
+    
     let password = hash3(req.body.password);
     let username = validate(req.body.username);
 
