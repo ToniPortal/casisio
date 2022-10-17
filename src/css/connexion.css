@@ -5,11 +5,12 @@
   margin: 0;
   box-sizing: border-box;
   font-family: 'Josefin Sans', sans-serif;
+  max-height: 100vh;
 }
 
-.hero {
-  height: 120vh;
-  width: 100%;
+body{
+  height: 100vh;
+  widows: 100%;
   background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
     url(../img/casino.jpg);
   background-size: cover;
@@ -18,7 +19,7 @@
 
 .box{
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 50%;
   width: 400px;
   transform: translate(-50%,-50%);
@@ -53,6 +54,7 @@
 }
 
 .box .unInput label{
+  z-index: -1;
   position: absolute;
   left: 0;
   top: 0;
@@ -63,7 +65,7 @@
   transition: .4s;
 }
 
-.box input[type="submit"]{
+.box .inscrConnexion input[type="submit"]{
   border: none;
   outline: none;
   background: #ea1538;
@@ -75,7 +77,12 @@
   letter-spacing: 1px;
 }
 
-.box input[type="submit"]:hover{
+.box .inscrConnexion a{
+  padding: 8px 8px;
+  color: #fff;
+  }
+
+.box .inscrConnexion input[type="submit"]:hover{
   transform: scale(1.1);
   transition: .3s;
   cursor: pointer;
