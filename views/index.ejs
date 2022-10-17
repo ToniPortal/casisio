@@ -1,11 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <%- include('./partials/head'); %>
+    <link rel="stylesheet" href="../src/css/style.css" />
+    <link rel="icon" href="media/logo casino.png" />
+    <meta charset="UTF-8" />
+    <title>Casisio</title>
   </head>
   <body>
-    <header class="hero">
-        <%- include('./partials/header'); %>
-    </header>
+    <div class="hero">
+      <nav>
+        <h2 class="logo">Casi<span>sio</span></h2>
+        <ul>
+          <li><a class="active" href="/">Accueil</a></li>
+          <li><a href="/play">Nos jeux</a></li>
+          <li><a href="/about">A propos</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+        <div class="btn">
+            <a href="/create"class="inscription">S'inscrire</a>
+            <a href="/login"class="connexion">Se connecter</a>
+        </div>
+      </nav>
+      <section class="main">
+        <div class="main-text">
+            <h5>Bienvenue !</h5>
+            <h1>Chez Casi<span>sio</span></h1>
+        </div>
+      </section>
+    </div>
   </body>
 </html>

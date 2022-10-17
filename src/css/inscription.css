@@ -11,7 +11,7 @@ body{
   height: 100vh;
   widows: 100%;
   background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url(media/casino.jpg);
+    url(../img/casino.jpg);
   background-size: cover;
   background-repeat: no-repeat no-repeat;
 }

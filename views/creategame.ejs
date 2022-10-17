@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>Jackpot</title>
+</head>
+<body>
+<script>
+
+	
+async function envoie(){
+  const valmise = 1;
+ // creategame
+  const locations = location.origin; // Avoir l'adresse du site sans /
+        console.log(`${locations}/gamecreate`)
+        const settings = { // Paramètres de la requête
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({idjeu: `${valmise}`})
+        };
+        const fetchResponse = await fetch(`${locations}/gamecreate`, settings); // Requête
+        const data = await fetchResponse.json(); // Récupération des données
+        const connection = data.connect; // Récupération du message
+
+}
+</script>
+<label> mise</label>
+<input id="mise" value="0">
+<button onclick="envoie()">Mise</button>
+</body>
+</html>

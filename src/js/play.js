@@ -13,4 +13,9 @@ window.onload = function () {
     document.location.href = "/game1";
   });
 
+  (document.querySelectorAll("img")[1]).addEventListener("click", function (e) {
+    e.preventDefault();
+    document.location.href = "/game2";
+  });
+
 }
