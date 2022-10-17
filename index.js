@@ -10,7 +10,7 @@ const mysql = require('mysql'),
     helmet = require("helmet"),
     { XXHash32 } = require('xxhash-addon'),
     fs = require('fs');
-    app = express();
+app = express();
 
 // Render chat
 app.set('view engine', 'ejs')
@@ -103,6 +103,12 @@ app.get('/create', function (req, res) {
 
 });
 
+app.get('/contact', function (req, res) {
+
+    res.render("contact")
+
+});
+
 
 app.get('/game1', function (req, res) {
 
@@ -150,14 +156,31 @@ function hash3(passwords) {
 
 app.post("/gamecreate", function (req, res) {
 
-    let username = validate(req.body.username);
+    let username = req.session.username;
     let mise = validate(req.body.mise);
     let result = validate(req.body.result);
 
-    connection.query(`INSERT INTO \`Jouer\`(\`idjoueur\`,\`idjeu\`, \`resultat\`, \`DateComplete\`,\`Mise\`) VALUES ('${username}','1','${result}', '${Date.now}','${mise}')`, function (error, results, fields) {
 
+    connection.query(`SELECT * FROM Joueur WHERE username = "${username}"`, function (selerror, selresults, selfields) {
+
+        if (selresults.length > 0) {
+            console.log(selresults)
+            connection.query(`INSERT INTO \`Jouer\`(\`idjoueur\`,\`idjeu\`, \`resultat\`, \`DateComplete\`,\`Mise\`) VALUES ('${username}','1','${result}', '${Date.now}','${mise}')`, function (error, results, fields) {
+
+                if (results.protocol41 == true) {
+                    res.json({ "create": true })
+                    res.redirect('/play');
+                } else {
+                    res.redirect("/create")
+                }
+                res.end();
+
+            });
+        } else {
+            console.log("tome")
+            res.send("Mauvais Nom d'utlisateur et/ou mauvais mot de passe<br>");
+        }
     });
-
 });
 
 
