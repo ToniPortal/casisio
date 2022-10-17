@@ -1,83 +1,67 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>Jackpot</title>
 
-		<script src="../src/js/roulette.js"></script>
-        <style>
-            img {
-                width: 80px;
-                height: 80px;
-            }
-        </style>
-<script>
+<head>
+	<meta charset="utf-8">
+	<title>Jackpot</title>
 
-window.onload = function(){
-	(async () => {
-  const rawResponse = await fetch(`${document.location}/gamecreate`, {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({a: 1, b: 'Textual content'})
-  });
-  const content = await rawResponse.json();
+	<script src="../src/js/roulette.js"></script>
+	<style>
+		img {
+			width: 80px;
+			height: 80px;
+		}
+	</style>
+</head>
 
-  console.log(content);
-})();
-}
+<body>
 
-</script>
-	</head>
-	<body>
+	<div class="container">
+		<div class="page-header">
+			<h1>
+				Jackpot Roulette
+			</h1>
+		</div>
 
-		<div class="container">
-			<div class="page-header">
-				<h1>
-					Jackpot Roulette
-				</h1>
-			</div>
-
-			<div class="row">
-				<div class="span4">
-					<div id="cont" class="roulette_container" style="display:flex;">
-						<div class="roulette">
-							<img src="../src/img/chomp.png"/>
-							<img src="../src/img/coin.png"/>
-							<img src="../src/img/flower.png"/>
-							<img src="../src/img/mshroom.png"/>
-							<img src="../src/img/star.png"/>
-						</div>
-                        <div class="roulette">
-							<img src="../src/img/chomp.png"/>
-							<img src="../src/img/coin.png"/>
-							<img src="../src/img/flower.png"/>
-							<img src="../src/img/mshroom.png"/>
-							<img src="../src/img/star.png"/>
-						</div>
-                        <div class="roulette">
-							<img src="../src/img/chomp.png"/>
-							<img src="../src/img/coin.png"/>
-							<img src="../src/img/flower.png"/>
-							<img src="../src/img/mshroom.png"/>
-							<img src="../src/img/star.png"/>
-						</div>
+		<div class="row">
+			<div class="span4">
+				<div id="cont" class="roulette_container" style="display:flex;">
+					<div class="roulette">
+						<img src="../src/img/chomp.png" />
+						<img src="../src/img/coin.png" />
+						<img src="../src/img/flower.png" />
+						<img src="../src/img/mshroom.png" />
+						<img src="../src/img/star.png" />
 					</div>
-					<div class="btn_container">
-						<p>
-						<!--<button id="start"> START </button>-->
-						   <button id="stop" > STOP </button> 
-						  <!-- <button id="get" onclick="getwin()"> GET </button> -->
-						</p>
+					<div class="roulette">
+						<img src="../src/img/chomp.png" />
+						<img src="../src/img/coin.png" />
+						<img src="../src/img/flower.png" />
+						<img src="../src/img/mshroom.png" />
+						<img src="../src/img/star.png" />
+					</div>
+					<div class="roulette">
+						<img src="../src/img/chomp.png" />
+						<img src="../src/img/coin.png" />
+						<img src="../src/img/flower.png" />
+						<img src="../src/img/mshroom.png" />
+						<img src="../src/img/star.png" />
 					</div>
 				</div>
-				<label>Votre mise</label>
-<input id="mise" value="10" type="text"> </input>
+				<div class="btn_container">
+					<p>
+						<!--<button id="start"> START </button>-->
+						<button id="stop"> STOP </button>
+						<!-- <button id="get" onclick="getwin()"> GET </button> -->
+					</p>
+				</div>
+			</div>
+			<label>Votre mise</label>
+			<input id="mise" value="10" type="text"> </input>
 
-<p>Vous avez gagnée: <b><span id="nbggwin"></b></span></p>
+			<p>Vous avez gagnée: <b><span id="nbggwin"></b></span></p>
 
-	</body>
+			<p>Vous avez sur votre compte :<b><span id="combienatu"></span></b></p>
+</body>
+
 </html>
-

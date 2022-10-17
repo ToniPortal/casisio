@@ -1,20 +1,36 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <title>Roulette</title>
-        <link rel="stylesheet" type="text/css" href="../src/css/roulette.css">
-        <script src="../src/js/realroulette.js"></script>
-    </head>
-    <body class="back">
-   
-        <h1 id ="result"></h1>
-        <div id = "app" class="app">
-            <img class="marker" src="../src/img/marker.png" alt="">
-            <img class="wheel" src="../src/img/whel.png" alt="">
-            <img class="button" src="../src/img/boutton.png" alt="">
 
-        </div>
-    </body>
-   
+<head>
+    <meta charset="utf-8">
+    <title>Roulette</title>
+    <link rel="stylesheet" type="text/css" href="../src/css/roulette.css">
+    <script src="../src/js/realroulette.js"></script>
+</head>
+
+<body class="back">
+    <h1 id="ggoupas">GG ou Pas ?</h1>
+
+    <h1 id="result"></h1>
+    <div id="app" class="app">
+        <img class="marker" src="../src/img/marker.png" alt="">
+        <img class="wheel" src="../src/img/whel.png" alt="">
+        <img class="button" src="../src/img/boutton.png" alt="">
+
+    </div>
+
+    <input id="mise" value="10" type="text"> </input>
+
+    <p>Vous avez sur votre compte :<b><span id="combienatu"></span></b></p>
+    <br><br><br><br><br><br><br>
+    <fieldset>
+        <legend>Selectionner une couleur :</legend>
+        <input type="radio" id="noir" name="couleur" value="noir" checked>
+        <label for="huey">Noir</label>
+        <div>
+            <input type="radio" id="rouge" name="couleur" value="rouge">
+            <label for="huey">Rouge</label>
+    </fieldset>
+</body>
+
 </html>

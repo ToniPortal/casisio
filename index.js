@@ -67,7 +67,7 @@ function renderpage(name, req, res) {
         });
     } else {
 
-        res.cookie(`notlogin`, `${req.route['path']}`, { maxAge: 1000 });
+        res.cookie(`notlogin`, `${req.route['path']}`);
         res.redirect("/login");
     }
 }
@@ -168,6 +168,29 @@ function hash3(passwords) {
 
 }
 
+
+app.get("/resultat", function (req, res) {
+    if (req.session.loggedin) {
+        let username = req.session.username;
+
+        connection.query(`SELECT * FROM Joueur WHERE username = "${username}"`, function (selerror, selresults, selfields) {
+
+            connection.query(`SELECT SUM(resultat) FROM Jouer WHERE idjoueur = "${selresults[0].idjoueur}"`, function (sel1error, sel1results, sel1fields) {
+                if (sel1results.length > 0) {
+                    res.json({ "resultat": sel1results[0]["SUM(resultat)"] })
+                } else {
+                    res.json({ "resultat": false })
+                }
+            });
+
+        })
+    } else {
+        res.json({ "resultat": false })
+    }
+
+});
+
+
 app.post("/gamecreate", function (req, res) {
 
     let username = req.session.username;
@@ -178,21 +201,67 @@ app.post("/gamecreate", function (req, res) {
     connection.query(`SELECT * FROM Joueur WHERE username = "${username}"`, function (selerror, selresults, selfields) {
 
         if (selresults.length > 0) {
+            connection.query(`SELECT * FROM Jouer WHERE idjoueur = "${selresults[0].idjoueur}"`, function (sel1error, sel1results, sel1fields) {
+                if (sel1results.length <= 0) {
+                    connection.query(`INSERT INTO \`Jouer\`(\`idjoueur\`,\`idjeu\`, \`resultat\`, \`DateComplete\`,\`Mise\`) VALUES ('${selresults[0].idjoueur}','${idjeu}','1', '${date.toISOString().split('T')[0]}','0')`, function (error, results, fields) {
 
-            connection.query(`INSERT INTO \`Jouer\`(\`idjoueur\`,\`idjeu\`, \`resultat\`, \`DateComplete\`,\`Mise\`) VALUES ('0','${selresults[0].idjoueur}','0', '${date.toISOString().split('T')[0]}','0')`, function (error, results, fields) {
+                        if (results.length > 0) {
+                            res.json({ "create": true })
+                        } else {
+                            res.json({ "create": false })
+                        }
+                        res.end();
 
-                if (results.length > 0) {
-                    res.json({ "create": true })
+                    });
                 } else {
                     res.json({ "create": false })
+                    res.end();
+                }
+            })
+        } else {
+            res.json({ "create": false })
+            res.end();
+        }
+    });
+});
+
+
+app.post("/updategame", function (req, res) {
+
+    let username = req.session.username;
+    let idjeu = validate(req.body.idjeu);
+    let resultat = validate(req.body.gain);
+    let mise = validate(req.body.mise);
+
+    var date = new Date();
+    connection.query(`SELECT * FROM Joueur WHERE username = "${username}"`, function (selerror, selresults, selfields) {
+
+        if (selresults.length > 0) {
+            //UPDATE Jouer SET resultat = 10,Mise = 10 WHERE idjoueur = "22" AND idjeu= "1"
+            connection.query(`UPDATE Jouer SET resultat = ${resultat},DateComplete = "${date.toISOString().split('T')[0]}",Mise = ${mise} WHERE idjoueur = "${selresults[0].idjoueur}" AND idjeu = "${idjeu}"`, function (error, results, fields) {
+                console.log(results)
+
+                if (error) {
+                    console.log(error);
+                }
+
+                if (results != undefined) {
+                    res.json({ "update": true })
+                } else {
+                    res.json({ "update": false })
                 }
                 res.end();
 
             });
+
+
         } else {
-            res.send("Il n'y pas de compte<br>");
+            res.json({ "update": false })
+            res.end();
         }
     });
+
+
 });
 
 
@@ -327,13 +396,8 @@ app.post('/auth', function (req, res) {
                 req.session.username = username;
                 centralusername = username;
                 // rediction page play.
-                if (req.cookies.notlogin != "" && req.cookies.notlogin != null && req.cookie.notlogin != undefined) {
-                   res.redirect(`${req.cookies.notlogin}`);
-                   res.clearCookie("notlogin");
+                res.redirect("/play");
 
-                } else {
-                    res.redirect("/play");
-                }
             } else {
                 console.log("tome")
                 res.send("Mauvais Nom d'utlisateur et/ou mauvais mot de passe<br>");

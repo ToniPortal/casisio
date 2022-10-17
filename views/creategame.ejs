@@ -22,12 +22,10 @@ async function envoie(){
         };
         const fetchResponse = await fetch(`${locations}/gamecreate`, settings); // Requête
         const data = await fetchResponse.json(); // Récupération des données
-        const connection = data.connect; // Récupération du message
 
+        console.log(data)
 }
 </script>
-<label> mise</label>
-<input id="mise" value="0">
-<button onclick="envoie()">Mise</button>
+<button onclick="envoie()">Envoie test</button>
 </body>
 </html>

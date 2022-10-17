@@ -1,9 +1,24 @@
 window.onload = function () {
 
 	allcache();
-	
-	let time = 0;
-	const max = 10;
+	envoiebase();
+
+
+	async function combienatu() {
+		const locations = location.origin; // Avoir l'adresse du site sans /
+		const settings = { // Paramètres de la requête
+			method: 'GET',
+		};
+		const fetchResponse = await fetch(`${locations}/resultat`, settings); // Requête
+		const data = await fetchResponse.json(); // Récupération des données
+		if (data.resultat !== false) {
+			document.getElementById("combienatu").innerHTML = data.resultat;
+			return;
+		} else {
+			alert("Error pour get combienatu");
+			return;
+		}
+	}
 
 	function random(min, max) {
 		min = Math.ceil(min);
@@ -11,41 +26,41 @@ window.onload = function () {
 		return Math.floor(Math.random() * (max - min)) + min;
 	}
 
-	function fcintertime(clear) {
-		if (clear == 0) {
-			let intertime = setInterval(function () {
-				time++;
-				console.log(time)
-				if (time >= max) {
-					time = 0;
-					clearInterval(intertime);
-					return stop();
-				}
-			}, 1000);
+	async function envoiebase() {
+		const valmise = 1;
+		const locations = location.origin; // Avoir l'adresse du site sans /
+		console.log(`${locations}/gamecreate`)
+		const settings = { // Paramètres de la requête
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ idjeu: `${valmise}` })
+		};
+		const fetchResponse = await fetch(`${locations}/gamecreate`, settings); // Requête
+		const data = await fetchResponse.json(); // Récupération des données
+		if (data.create === false) {
+			console.log("Vous avez déjà une partie en cours")
+			return combienatu();
+		} else if (data.create === true) {
+			console.log("Partie créé")
+			return combienatu();
 		} else {
-			time = max + 1;
+			alert("Erreur lors de la création de la partie !")
+			return;
 		}
-		return time;
 	}
 
-	/*
-		(document.getElementById("start")).addEventListener("click", function () {
-			console.log("start")
-	
-			fcintertime(0);
-	
-		});
-	*/
 
 	(document.getElementById("stop")).addEventListener("click", function () {
 
-		if (document.getElementById("mise").value != "0" && document.getElementById("mise").value != "") {
+		if (document.getElementById("mise").value != "0" && document.getElementById("mise").value != "" && document.getElementById("mise").value != " " && (Number(document.getElementById("combienatu").innerHTML) >= Number(document.getElementById("mise").value))) {
 			allcache()
-			//	document.querySelectorAll("img").style.visibility = "visible";
 
 			stop()
 		} else {
-			alert("Vous devez mettre une mise")
+			alert("Vous devez mettre une mise ou un chiffre qui est inférieur/égal à votre argent")
 		}
 
 	});
@@ -61,7 +76,6 @@ window.onload = function () {
 
 	async function stop() {
 		console.log("stop")
-		fcintertime(1);
 		let choix = [];
 		let nbroul = document.getElementsByClassName("roulette").length;
 		let nbgagnant = 0;
@@ -90,20 +104,23 @@ window.onload = function () {
 		cache([Number(choix[0])]);
 		cache([Number(choix[1] + Number(5))]);
 		cache([Number(choix[2]) + Number(10)]);
-		//document.querySelectorAll("img")[Number(choix[0])].style.visibility = "visible";
-		//document.querySelectorAll("img")[Number(choix[1]) + Number(5)].style.visibility = "visible";
-		//document.querySelectorAll("img")[Number(choix[2]) + Number(10)].style.visibility = "visible";
 
 		//Gestion de la mise
 		const mise = document.getElementById("mise");
 		const nbggwin = document.getElementById("nbggwin");
+		const gain = Number(mise.value) * Number(nbgagnant + 0.25);
+		const miseactuel = document.getElementById("mise").value;
+		const combienatu = document.getElementById("combienatu");
 
 		if (nbgagnant == 0) {
-			nbggwin.innerText = `nada €`;
+			nbggwin.innerText = `- ${Number(gain)} €`;
+			envoie(miseactuel, Number(combienatu.innerText) - Number(gain))
+			combienatu.innerText =  Number(combienatu.innerText) - Number(gain);
 		} else {
-			const gain = Number(mise.value) * Number(nbgagnant + 0.25);
+			envoie(miseactuel, Number(combienatu.innerText) + Number(gain))
 			nbggwin.innerText = `${gain} €`;
 			mise.value = gain;
+			combienatu.innerText = Number(combienatu.innerText) + Number(gain);
 		}
 	}
 
@@ -117,6 +134,29 @@ window.onload = function () {
 		else {
 			custDiv.style.display = "none";
 			custDiv.style.visibility = "hidden";
+		}
+	}
+
+	async function envoie(mise, gain) {
+		console.log("envoie" + mise + " " + gain)
+
+		const loc = location.origin; // Avoir l'adresse du site sans /
+		console.log(`${loc}/updategame`)
+		const settings = { // Paramètres de la requête
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ mise: `${mise}`, gain: `${gain}`, idjeu: `1` })
+		};
+		const response = await fetch(`${loc}/updategame`, settings); // Requête
+		if (response.status >= 200 && response.status <= 299) {
+			const jsonResponse = await response.json();
+			console.log(jsonResponse);
+		} else {
+			// Handle errors
+			console.log(response.status, response.statusText);
 		}
 	}
 
