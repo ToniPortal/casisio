@@ -10,29 +10,27 @@
 </head>
 
 <body class="hero">
-    <div class="">
-        <button id="createbtn">Create New Account</button>
-    </div>
     <div class="main">
         <div class="box">
-            <h1>Login</h1>
+            <h1>Connexion</h1>
             <form action="/auth" method="post" >
                 <div class="unInput">
                     <input type="text" name="username" autocomplete="off" required>
-                    <label>Username</label>
+                    <label>Utilisateur</label>
                 </div>
 
                 <div class="unInput">
                     <input type="text" name="password" autocomplete="off" required>
-                    <label>Password</label>
+                    <label>Mot de passe</label>
                 </div>
 
-                <input id="btnlog" type="submit" value="Se connecter">
+                <div class="inscrConnexion">
+                    <input id="btnlog" type="submit" value="Se connecter">
+                    <a href="/create">S'inscrire</a>
+                </div>
 
             </form>
         </div>
     </div>
 
 </body>
-
-</html>
