@@ -4,10 +4,10 @@ window.onload = function () {
 
     function desactbtn() {
         valid = false;
-        formButton.disabled = true;
+    //    formButton.disabled = true;
     }
     function activbtn() {
-        formButton.disabled = false;
+      //  formButton.disabled = false;
         valid = true;
     }
 

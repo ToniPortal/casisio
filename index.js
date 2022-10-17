@@ -66,6 +66,8 @@ function renderpage(name, req, res) {
             username: usernames
         });
     } else {
+
+        res.cookie(`notlogin`, `${req.route['path']}`, { maxAge: 1000 });
         res.redirect("/login");
     }
 }
@@ -109,10 +111,22 @@ app.get('/contact', function (req, res) {
 
 });
 
+app.get('/creategame', function (req, res) {
+
+    renderpage('creategame', req, res);
+
+});
+
 
 app.get('/game1', function (req, res) {
 
     renderpage('game1', req, res);
+
+});
+
+app.get('/game2', function (req, res) {
+
+    renderpage('game2', req, res);
 
 });
 
@@ -157,28 +171,26 @@ function hash3(passwords) {
 app.post("/gamecreate", function (req, res) {
 
     let username = req.session.username;
-    let mise = validate(req.body.mise);
-    let result = validate(req.body.result);
+    let idjeu = validate(req.body.idjeu);
 
+    var date = new Date();
 
     connection.query(`SELECT * FROM Joueur WHERE username = "${username}"`, function (selerror, selresults, selfields) {
 
         if (selresults.length > 0) {
-            console.log(selresults)
-            connection.query(`INSERT INTO \`Jouer\`(\`idjoueur\`,\`idjeu\`, \`resultat\`, \`DateComplete\`,\`Mise\`) VALUES ('${username}','1','${result}', '${Date.now}','${mise}')`, function (error, results, fields) {
 
-                if (results.protocol41 == true) {
+            connection.query(`INSERT INTO \`Jouer\`(\`idjoueur\`,\`idjeu\`, \`resultat\`, \`DateComplete\`,\`Mise\`) VALUES ('0','${selresults[0].idjoueur}','0', '${date.toISOString().split('T')[0]}','0')`, function (error, results, fields) {
+
+                if (results.length > 0) {
                     res.json({ "create": true })
-                    res.redirect('/play');
                 } else {
-                    res.redirect("/create")
+                    res.json({ "create": false })
                 }
                 res.end();
 
             });
         } else {
-            console.log("tome")
-            res.send("Mauvais Nom d'utlisateur et/ou mauvais mot de passe<br>");
+            res.send("Il n'y pas de compte<br>");
         }
     });
 });
@@ -315,7 +327,13 @@ app.post('/auth', function (req, res) {
                 req.session.username = username;
                 centralusername = username;
                 // rediction page play.
-                res.redirect('/play');
+                if (req.cookies.notlogin != "" && req.cookies.notlogin != null && req.cookie.notlogin != undefined) {
+                   res.redirect(`${req.cookies.notlogin}`);
+                   res.clearCookie("notlogin");
+
+                } else {
+                    res.redirect("/play");
+                }
             } else {
                 console.log("tome")
                 res.send("Mauvais Nom d'utlisateur et/ou mauvais mot de passe<br>");

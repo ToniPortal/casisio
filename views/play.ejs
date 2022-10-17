@@ -7,39 +7,36 @@
   <body>
     <header class="hero">
       <%- include('./partials/header'); %>
-      <br><br>
-   <h1> Bonjour : <span><%= username %></span></h1>
+      <br /><br />
+      <h1>Bonjour : <span><%= username %></span></h1>
 
-    <button id="manageaccount">Manage Account</button>
+      <button id="manageaccount">Manage Account</button>
 
-    <section class="shop" id="shop" >
-      <div class="container">
-        <div class="box">
-          <img src="../src/img/roulette4.png">
-          <h4>La roulette</h4>
+      <section class="shop" id="shop">
+        <div class="container">
+          <div class="box">
+            <img src="../src/img/roulette3.png" />
+            <h4>Jackpot</h4>
+          </div>
+
+          <div class="box">
+            <img src="../src/img/roulette4.png" />
+            <h4>La roulette</h4>
+          </div>
+
+          <div class="box">
+            <img src="../src/img/roulette4.png" />
+            <h4>La roulette</h4>
+          </div>
         </div>
+      </section>
 
-        <div class="box">
-          <img src="../src/img/roulette4.png">
-          <h4>La roulette</h4>
-        </div>
-
-        <div class="box">
-          <img src="../src/img/roulette4.png">
-          <h4>La roulette</h4>
-        </div>
-
-       
-      </div>
-
-    </section>
-
-    <img
-      src="../src/people/<%=username%>.jpg"
-      alt="ImgDeProfil"
-      width="30"
-      height="30"
-    />
-  </header>
+      <img
+        src="../src/people/<%=username%>.jpg"
+        alt="ImgDeProfil"
+        width="30"
+        height="30"
+      />
+    </header>
   </body>
 </html>
