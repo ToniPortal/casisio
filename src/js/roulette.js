@@ -55,7 +55,7 @@ window.onload = function () {
 
 	(document.getElementById("stop")).addEventListener("click", function () {
 
-		if (document.getElementById("mise").value != "0" && document.getElementById("mise").value != "" && document.getElementById("mise").value != " " && (Number(document.getElementById("combienatu").innerHTML) >= Number(document.getElementById("mise").value))) {
+		if (document.getElementById("mise").value > "0" && document.getElementById("mise").value != "0" && document.getElementById("mise").value != "" && document.getElementById("mise").value != " " && (Number(document.getElementById("combienatu").innerHTML) >= Number(document.getElementById("mise").value))) {
 			allcache()
 
 			stop()

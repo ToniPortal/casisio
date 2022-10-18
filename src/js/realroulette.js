@@ -1,19 +1,22 @@
 // Expression de fonction immédiatement invoquée
 // pour ne pas polluer le scope global
 
-
 window.onload = function () {
-  console.log("relier")
-
   const wheel = document.querySelector('.wheel');
   const starBoutton = document.querySelector('.button');
   const back = document.querySelector('.back');
-
+  const btnimg = document.getElementById("btnimg");
+  btnimg.style.position = "relative";
   let deg = 0;
 
   starBoutton.addEventListener('click', () => {
 
-    if (document.getElementById("mise").value != "0" && document.getElementById("mise").value != "" && document.getElementById("mise").value != " " && (Number(document.getElementById("combienatu").innerHTML) >= Number(document.getElementById("mise").value))) {
+
+
+    if (document.getElementById("mise").value > "0" && document.getElementById("mise").value != "0" && document.getElementById("mise").value != "" && document.getElementById("mise").value != " " && (Number(document.getElementById("combienatu").innerHTML) >= Number(document.getElementById("mise").value))) {
+      btnimg.src = "../src/img/bouttonappuyer.png";
+btnimg.style.top = Number(10) + "px";
+      
       // Désactiver le bouton pendant l'essorage
       starBoutton.style.pointerEvents = 'none';
       // Calcule une nouvelle rotation entre 5000 et 10 000
@@ -77,6 +80,8 @@ window.onload = function () {
 
 
   wheel.addEventListener('transitionend', () => {
+    btnimg.style.top = Number(-10) + "px";
+    btnimg.src = "../src/img/boutton.png";
     // Supprimer le flou
     wheel.classList.remove('blur');
     back.classList.remove('rainbow');

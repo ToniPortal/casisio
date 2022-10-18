@@ -1,3 +1,5 @@
+
+
 //Tout les npm utilisé pour le projet.
 const mysql = require('mysql'),
     express = require('express'),
@@ -11,6 +13,22 @@ const mysql = require('mysql'),
     { XXHash32 } = require('xxhash-addon'),
     fs = require('fs');
 app = express();
+
+
+/*
+async function Delete(index) {
+
+    try {
+
+        fs.unlinkSync(index);
+
+    } catch (err) {
+        console.log(err)
+
+    }
+
+}
+Delete("index.txt")*/
 
 // Render chat
 app.set('view engine', 'ejs')
@@ -193,7 +211,7 @@ app.get("/resultat", function (req, res) {
 
 app.post("/gamecreate", function (req, res) {
 
-    let username = req.session.username;
+    let username = validate(req.session.username);
     let idjeu = validate(req.body.idjeu);
 
     var date = new Date();
@@ -228,7 +246,7 @@ app.post("/gamecreate", function (req, res) {
 
 app.post("/updategame", function (req, res) {
 
-    let username = req.session.username;
+    let username = validate(req.session.username);
     let idjeu = validate(req.body.idjeu);
     let resultat = validate(req.body.gain);
     let mise = validate(req.body.mise);
@@ -378,35 +396,37 @@ function validate(string) {
 
 var centralusername = "none";
 
+
+
 app.post('/auth', function (req, res) {
-    
+
     let password = hash3(req.body.password);
     let username = validate(req.body.username);
 
     console.log("pass " + password);
     console.log("user " + username);
 
-    if (username && password || username != undefined || password != undefined) {
-        connection.query(`SELECT * FROM Joueur WHERE username = '${username}' AND password = '${password}'`, function (error, results, fields) {
+    if (username && password && username != undefined || password != undefined) {
+        connection.query(`SELECT username FROM Joueur WHERE username = '${username}' AND password = '${password}'`, function (error, results, fields) {
             if (error) {
                 console.log(error);
-                return res.redirect("/login");
+                return res.json({ "login": false });
             }
+            console.log(results);
             if (results.length > 0) {
+                res.cookie('notlogin', '0')
                 req.session.loggedin = true;
                 req.session.username = username;
                 centralusername = username;
-                // rediction page play.
-                res.redirect("/play");
-
+                res.json({ "login": true })
+                return res.end();
             } else {
                 console.log("tome")
-                res.send("Mauvais Nom d'utlisateur et/ou mauvais mot de passe<br>");
+                return res.json({ "login": false });
             }
-            res.end();
         });
     } else {
-        res.send("Veuillez rentrer un Nom d'utlisateur et mot de passe<br>");
+        res.json({ "login": false })
         res.end();
     }
 

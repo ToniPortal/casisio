@@ -1,7 +1,16 @@
 body {
-    background-image: linear-gradient(rgba(255, 255, 255, rgba(0, 0, 0, 0.6), 0.6)),
-    url(../img/background.jpg);
+    background-image: url(../img/background.jpg);
     background-size: cover;
+}
+p
+{
+    box-shadow: 10px 10px 4px black;
+    width: 30%;
+    height: 30%;
+    border-radius: 10px;
+    letter-spacing: 1px;
+    background-color:#101010 ;
+    color: rgb(114, 92, 62);
 }
 #app{
     width: 400px;
