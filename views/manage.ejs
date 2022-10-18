@@ -4,47 +4,76 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,minimum-scale=1" />
-    <title>Update Password</title>
+    <title>Paramètre du compte</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" />
-    <link href="./css/stylelogin.css" rel="stylesheet" type="text/css" />
+    <!-- <link href="./css/stylelogin.css" rel="stylesheet" type="text/css" /> -->
+    <link rel="stylesheet" href="../src/css/manage.css">
 </head>
 
 <body>
-    <h1>Bienvenue
-        <%= username %>
-    </h1>
-    <div class="login">
-        <h1>Update Password And Delete</h1>
+        <div class="main">
+            <div class="box">
+                <h1>Suppression du compte</h1>
+                <form>
+                    <div class="unInput">
+                        <input type="text" name="username" value="<%= username %>" required readonly/>
+                        <label>Utilisateur<i class="fas fa-user"></i></label>
+                    </div>
 
-        <label for="username">
-          <!-- font awesome icon -->
-          <i class="fas fa-user"></i>
-        </label>
-        <input type="text" name="username" placeholder="Username" id="username" value="<%= username %>" required readonly/>
-        <br>
-        <label for="password">
-          <i class="fas fa-lock"></i>
-        </label>
-        <input type="password" name="password" placeholder="Password" id="password" required />
-<br><br>
-<button onclick="Delete()">Delete</button>
-<br><br>
-        <label for="password">
-            <i class="fas fa-lock"></i>
-          </label>
-        <input type="password" name="newpassword" placeholder="newpassword" id="newpassword" required />
-        <br><br>
-       <button onclick="post()">Update</button>
+                    <div class="unInput">
+                        <input type="password" name="password" required />
+                        <label>Mot de passe actuel<i class="fas fa-lock"></i></label>                     
+                    </div>
+                    <div class="inscrConnexion">
+                        <input type="submit" value="Supprimer votre compte" onclick="Delete()">
+                    </div> 
+                    <br>
+                <h1>Modification du mot de passe</h1>
+                    <div class="unInput">
+                        <input type="password" name="newpassword" required />
+                        <label>Nouveau mot de passe<i class="fas fa-lock"></i></label>                     
+                    </div>
+
+                    <div class="inscrConnexion">                        
+                        <input type="submit" value="Modifier" onclick="post()">              
+                   </div>               
+                </form>                   
+                
+            </div>
+            <div class="boxN1">
+                <h1>Importer une image de profil</h1>
+                <form method="post" action="/post"enctype="multipart/form-data">
+                    <div class="unInput">
+                        <input type="file" name="image" /><br /><br />                        
+                    </div>
+                    <div class="inscrConnexion">
+                       <input type="submit" name="upload" value="importer"> 
+                    </div>         
+                </form>
+            </div>
+        </div>
+        
+        <!-- <input type="text" name="username" placeholder="Username" id="username" value="<%= username %>" required readonly/>
+        <br> -->
+        
+        <!-- <input type="password" name="password" placeholder="Password" id="password" required /> -->
+
+<!-- <button onclick="Delete()">Delete</button> -->
+
+        
+        <!-- <input type="password" name="newpassword" placeholder="newpassword" id="newpassword" required /> -->
+        
+       <!-- <button onclick="post()">Update</button> -->
        
-<br><br><br>
 
-<p>Image Upload</p>
+
+<!-- <p>Image Upload</p>
 <form method="post" action="/post" enctype="multipart/form-data">
   <input type="file" name="image" /><br /><br />
   <button type="submit" name="upload">Upload</button>
 </form>
 
-    </div>
+    </div> -->
 
     <script>
         function post() {
