@@ -9,8 +9,10 @@ window.onload = function () {
 
 async function formenvoie() {
 
-    let username = document.getElementById("username").value;
-    let password = document.getElementById("username").value;
+    let nom = document.getElementById("nom").value;
+    let email = document.getElementById("email").value;
+    let sujet = document.getElementById("sujet").value;
+    let msg = document.getElementById("msg").value;
     let err = document.getElementById("err");
 
     const loc = location.origin; // Avoir l'adresse du site sans /
@@ -20,27 +22,25 @@ async function formenvoie() {
             Accept: 'application/json',
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username: `${username}`, password: `${password}` })
+        body: JSON.stringify({ nom: `${nom}`, email: `${email}`,sujet: `${sujet}`, msg: `${msg}` })
     };
-    const response = await fetch(`${loc}/auth`, settings); // Requête
+    const response = await fetch(`${loc}/mail`, settings); // Requête
     if (response.status >= 200 && response.status <= 299) {
         const log = await response.json();
-        if (log.login === true) {
-         
-                window.location.href = `${loc}/play`;
-
-  
-            
-        } else if (log.login === false) {
-            err.innerText = "Mauvais identifiant ou mot de passe";
+        console.log(log)
+        if (log.mail === true) {
+            err.innerText = `Un mail a été envoyé, nous vous répondrons dans les plus brefs délais.`;
+            err.style.color = "green";
+        } else if (log.mail === false) {
+            err.innerText = "Erreur lors de l'envoie du mail.";
             err.style.color = "red";
         } else {
-            err.innerText = "Erreur inconnue";
+            err.innerText = "Erreur inconnue lors de l'envoie du mail.";
             err.style.color = "red";
             console.log("Erreur");
         }
 
- 
+
 
     } else {
         // Handle errors

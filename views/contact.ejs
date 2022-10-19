@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../src/css/contact.css">
+    <script src="../src/js/contact.js"></script>
     <title>Contactez-nous</title>
 </head>
 <body>
@@ -11,13 +12,14 @@
             <h1>Contactez <span>Nous</span></h1>
             <p>Vous pouvez également nous contacter par téléphone au 0606060606 ou 
                 par <a href="mailto:gaultclement24@gmail.com">email</a></p>
-            <form action="">
-                <input type="text" placeholder="Votre nom" required>
-                <input type="email" placeholder="Votre email" required>
-                <input type="text" placeholder="Sujet" required>
-                <textarea name="" id="" cols="30" rows="10" placeholder="Votre message"></textarea>
+            <form id="form" action="">
+                <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+                <input type="email" id="email" name="email" placeholder="Votre email" required>
+                <input type="text" id="sujet" name="sujet" placeholder="Sujet" required>
+                <textarea name="msg" id="msg" cols="30" rows="10" placeholder="Votre message"></textarea>
                 <input type="submit" name="" value="Envoyer" class="btn">
             </form>
+            <p id="err"></p>
         </div>
         <div class="contact-img">
             <img src="../src/img/image_contact.webp" alt="contact-img">

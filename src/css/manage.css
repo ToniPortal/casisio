@@ -20,7 +20,7 @@ body{
 .box{
   position: absolute;
   top: 45%;
-  left: 30%;
+  left: 35%;
   width: 400px;
   transform: translate(-50%,-50%);
   padding: 50px;
@@ -30,14 +30,13 @@ body{
 .boxN1{
     position: absolute;
     top: 45%;
-    left: 70%;
+    left: 65%;
     width: 400px;
     transform: translate(-50%,-50%);
     padding: 50px;
     background: #101010;
     border-radius: 15px;
   }
-  
 .box h1{
   color: #fff;
   text-align: center;
@@ -143,6 +142,14 @@ body{
   }
 
 .box .unInput input:focus~label,
+.box .unInput input:valid~label{
+  top:-20px;
+  left: 0;
+  color:#ea1538;
+  font-size: 12px;
+}
+
+.box #noneFocus input~label,
 .box .unInput input:valid~label{
   top:-20px;
   left: 0;

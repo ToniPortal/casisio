@@ -115,6 +115,13 @@ app.get('/play', function (req, res) {
 
 });
 
+app.get('/about', function (req, res) {
+
+    res.render('about');
+
+});
+
+
 
 
 app.get('/create', function (req, res) {
@@ -144,7 +151,7 @@ app.get('/game1', function (req, res) {
 
 app.get('/game2', function (req, res) {
 
-    renderpage('game2', req, res);
+    renderpage('roulette', req, res);
 
 });
 
@@ -356,6 +363,66 @@ app.get('/manage', function (req, res) {
     }
 
 });
+
+//Mail :
+app.post('/mail', function (req, res) {
+
+let nom = validate(req.body.nom);
+let email = validate(req.body.email);
+let msg = validate(req.body.msg);
+let sujet = validate(req.body.sujet);
+
+    if ((emailcontact(`${email}`,`${sujet}`, `Message de '${nom}' avec l'email ${email} ${msg}`)) != false) {
+        res.json({ "mail": true })
+        res.end();
+    } else {
+        res.json({ "mail": false })
+        res.end();
+    }
+    
+
+});
+
+
+var nodemailer = require('nodemailer'); // Importer Nodemailer pckt
+
+//Function pour envoyer un email.
+async function emailcontact(email,sujet, msg) {
+
+    const htmlemail = `${msg}`; // HTML body
+
+
+
+        const transporter = nodemailer.createTransport({
+            host: 'smtp.ethereal.email',
+            port: 587,
+            auth: {
+                user: 'syble3@ethereal.email',
+                pass: 'dhFMVs7aR4u3YX9t1M'
+            }
+        });
+
+        // Envoyer mail
+        let info = await transporter.sendMail({
+            from: 'syble3@ethereal.email', // sender address
+            to: `${email}`, // list of receivers
+            subject: sujet, // Subject line
+            html: htmlemail, // html body
+        });
+        console.log("Id du msg: %s", info.messageId);
+        // Message envoyée : <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+        if (info.err) {
+            console.log("error:" + err);
+            return false;
+        } else {
+            return true;
+        }
+
+}
+
+
+
 
 
 const multer = require('multer')
