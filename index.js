@@ -145,7 +145,7 @@ app.get('/creategame', function (req, res) {
 
 app.get('/game1', function (req, res) {
 
-    renderpage('game1', req, res);
+    renderpage('jackpot', req, res);
 
 });
 
