@@ -15,8 +15,8 @@ window.onload = function () {
 
     if (document.getElementById("mise").value > "0" && document.getElementById("mise").value != "0" && document.getElementById("mise").value != "" && document.getElementById("mise").value != " " && (Number(document.getElementById("combienatu").innerHTML) >= Number(document.getElementById("mise").value))) {
       btnimg.src = "../src/img/bouttonappuyer.png";
-btnimg.style.top = Number(10) + "px";
-      
+      btnimg.style.top = Number(10) + "px";
+
       // Désactiver le bouton pendant l'essorage
       starBoutton.style.pointerEvents = 'none';
       // Calcule une nouvelle rotation entre 5000 et 10 000
@@ -78,6 +78,7 @@ btnimg.style.top = Number(10) + "px";
     }
   }
 
+  const ggoupas = document.getElementById("ggoupas");
 
   wheel.addEventListener('transitionend', () => {
     btnimg.style.top = Number(-10) + "px";
@@ -101,18 +102,18 @@ btnimg.style.top = Number(10) + "px";
     if (actualDeg >= 0 && actualDeg < 360) {
 
       setTimeout(function () {
-        const texte = document.getElementById("result").innerText;
-        const ggoupas = document.getElementById("ggoupas");
-        console.log(texte)
-
+        
         var couleur = document.getElementsByName('couleur'); // form input radio noir ou rouge ou vert
 
         const nbcbatu = Number(document.getElementById("combienatu").innerText);
         const mise = Number(document.getElementById("mise").value)
         const doublemise = nbcbatu + (mise * 2);
-
+        const quintuplemise = nbcbatu + (mise * 5);
+        const cbatu = document.getElementById("combienatu");
 
         for (let i of couleur) {
+
+          let texte = document.getElementById("result").innerText;
 
           if (i.checked) {
             console.log(i.id);
@@ -120,31 +121,47 @@ btnimg.style.top = Number(10) + "px";
               if (texte.indexOf("RED") != -1) {
                 console.log("gagné")
                 ggoupas.innerText = "Vous avez gagné";
-                envoie(document.getElementById("mise").value, doublemise);
+                envoie(mise, doublemise);
 
-                document.getElementById("combienatu").innerText = doublemise;
-                
+                cbatu.innerText = doublemise;
+
               } else {
                 console.log("perdu")
                 ggoupas.innerText = "Vous avez perdu";
-                envoie(document.getElementById("mise").value, nbcbatu - mise);
+                envoie(mise, nbcbatu - mise);
 
-                document.getElementById("combienatu").innerText = nbcbatu - mise;
+                cbatu.innerText = nbcbatu - mise;
 
               }
             } else if (i.id == "noir") {
               if (texte.indexOf("BLACK") != -1) {
                 console.log("gagné")
                 ggoupas.innerText = "Vous avez gagné";
-                envoie(document.getElementById("mise").value, doublemise);
+                envoie(mise, doublemise);
 
-                document.getElementById("combienatu").innerText = doublemise;
+                cbatu.innerText = doublemise;
 
               } else {
                 console.log("perdu")
                 ggoupas.innerText = "Vous avez perdu";
-                envoie(document.getElementById("mise").value, nbcbatu - mise);
+                envoie(mise, nbcbatu - mise);
                 document.getElementById("combienatu").innerText = nbcbatu - mise;
+              }
+            } else if(i.id == "vert"){
+              if (texte.indexOf("GREEN") != -1) {
+                console.log("gagné")
+                ggoupas.innerText = "Vous avez gagné";
+                envoie(document.getElementById("mise").value, quintuplemise);
+
+                cbatu.innerText = quintuplemise;
+
+              } else {
+
+                console.log("perdu")
+                ggoupas.innerText = "Vous avez perdu";
+                envoie(document.getElementById("mise").value, nbcbatu - mise);
+                cbatu.innerText = nbcbatu - mise;
+
               }
             }
           }
@@ -154,6 +171,7 @@ btnimg.style.top = Number(10) + "px";
       }, 500);
 
     }
+
     //Vert = 5 fois ta mise ; Rouge choisie = tu gagne 2 fois ta mise ; Noir choisie = tu gagne 2 fois ta mise
 
     if (actualDeg >= 0 && actualDeg < 10) {

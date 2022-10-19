@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Roulette</title>
-    <link rel="stylesheet" type="text/css" href="roulette.css">
+    <link rel="stylesheet" type="text/css" href="../src/css/roulette.css">
     <script src="../src/js/realroulette.js"></script>
 </head>
 
@@ -36,16 +36,26 @@
             </p>
         </div>
 
-<br><br><br>
+    <br>
+    <br>
+    <br>
     <p class="resultat">Vous avez sur votre compte :<b><span id="combienatu"></span></b></p>
-    <br><br><br><br>
+    <br>
+    <br>
     <fieldset>
         <legend>Selectionner une couleur :</legend>
-        <input type="radio" id="noir" name="couleur" value="noir" checked>
-        <label for="huey">Noir</label>
+        <div>
+            <input type="radio" id="noir" name="couleur" value="noir" checked>
+            <label for="huey">Noir</label>
+        </div>
         <div>
             <input type="radio" id="rouge" name="couleur" value="rouge">
             <label for="huey">Rouge</label>
+        </div>
+        <div>
+            <input type="radio" id="vert" name="couleur" value="vert">
+            <label for="huey">Vert</label>
+        </div>
     </fieldset>
 </body>
 

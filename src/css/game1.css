@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;400;500;600;700&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+body {
+  height: 100vh;
+  widows: 100%;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url(media/fondVert.jpg);
+  background-size: cover;
+  background-repeat: no-repeat no-repeat;
+}
+
+.page-header h1 {
+  text-align: center;
+  margin-top: 40px;
+  color: #fff;
+}
+
+.roulette_container {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-basis: auto;
+  flex-direction: row;
+
+}
