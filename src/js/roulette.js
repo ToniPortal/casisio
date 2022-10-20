@@ -1,8 +1,42 @@
 window.onload = function () {
 
-	allcache();
+	demarecache();
 	envoiebase();
 
+	
+
+
+setInterval(function () {
+	boucle()
+}, 50);
+
+
+function randomimg(imgdonner){
+	let img = imgdonner;
+	
+	switch(random(0, 4)){
+		case 0:
+			img.src = "../src/img/chomp.png";
+			break;
+		case 1:
+			img.src = "../src/img/coin.png";
+			break;
+		case 2:
+			img.src = "../src/img/flower.png";
+			break;
+		case 3:
+			img.src = "../src/img/mshroom.png";
+			break;
+	}
+}
+
+
+function boucle(){
+	for(let i = 0; i < 3; i++){
+	var donne = (document.getElementsByClassName("roulette")[i].firstElementChild)
+	randomimg(donne)
+	}
+}
 
 	async function combienatu() {
 		const locations = location.origin; // Avoir l'adresse du site sans /
@@ -53,7 +87,7 @@ window.onload = function () {
 	}
 
 
-	(document.getElementById("stop")).addEventListener("click", function () {
+	(document.getElementById("stopage")).addEventListener("click", function () {
 
 		if (document.getElementById("mise").value > "0" && document.getElementById("mise").value != "0" && document.getElementById("mise").value != "" && document.getElementById("mise").value != " " && (Number(document.getElementById("combienatu").innerHTML) >= Number(document.getElementById("mise").value))) {
 			allcache()
@@ -66,10 +100,22 @@ window.onload = function () {
 	});
 
 	function allcache() {
+		console.log("allchache")
 		document.querySelectorAll("img").forEach(element => {
 			element.style.visibility = "hidden";
 			element.style.display = "none";
 		});
+	}
+
+	function demarecache() {
+		document.querySelectorAll("img").forEach(element => {
+			console.log("demarecahce")
+			if (element.id != "stop") {
+				element.style.visibility = "hidden";
+				element.style.display = "none";
+			}
+		});
+
 	}
 
 
@@ -115,7 +161,7 @@ window.onload = function () {
 		if (nbgagnant == 0) {
 			nbggwin.innerText = `- ${Number(gain)} €`;
 			envoie(miseactuel, Number(combienatu.innerText) - Number(gain))
-			combienatu.innerText =  Number(combienatu.innerText) - Number(gain);
+			combienatu.innerText = Number(combienatu.innerText) - Number(gain);
 		} else {
 			envoie(miseactuel, Number(combienatu.innerText) + Number(gain))
 			nbggwin.innerText = `${gain} €`;

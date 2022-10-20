@@ -48,7 +48,7 @@ window.onload = function () {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ mise: `${mise}`, gain: `${gain}`, idjeu: `1` })
+      body: JSON.stringify({ mise: `${mise}`, gain: `${gain}`, idjeu: `2` })
     };
     const response = await fetch(`${loc}/updategame`, settings); // Requête
     if (response.status >= 200 && response.status <= 299) {

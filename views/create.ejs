@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../src/css/inscription.css">
+    <script src="../src/js/create.js"></script>
     <title>Inscription</title>
 </head>
 <body>
@@ -19,7 +20,7 @@
                 </div>
 
                 <div class="unInput">
-                    <input type="number" name="dateNaissance" autocomplete="off" required>
+                    <input type="number" id="age" name="dateNaissance" autocomplete="off" required>
                     <label>Age</label>
                 </div>
 
@@ -38,7 +39,7 @@
                     <label>Confirmer votre mot de passe</label>
                 </div>
 
-                <input id="btncreate" type="submit" value="S'inscrire">
+                <input id="btncreate" type="submit" value="S'inscrire" disabled>
                     
         
             

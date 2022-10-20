@@ -7,6 +7,10 @@
   font-family: 'Josefin Sans', sans-serif;
 }
 
+:disabled {
+  opacity: 0.5;
+}
+
 body{
   height: 100vh;
   widows: 100%;

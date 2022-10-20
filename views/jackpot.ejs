@@ -6,7 +6,9 @@
     <title>Jackpot</title>
 
     <script src="../src/js/roulette.js"></script>
+    <!-- <link rel="stylesheet" href="../src/img/jackpot.css"> -->
     <link rel="stylesheet" href="../src/css/jackpot.css">
+
     <style>
     </style>
 </head>
@@ -15,49 +17,62 @@
 
     <div class="container">
         <div class="page-header">
-            <h1>
-                Jackpot Roulette
-            </h1>
+
         </div>
 
         <div class="row">
-            <div class="span4">
+            <div class="box2">
+                <h1>Jackpot Roulette</h1>
                 <div id="cont" class="roulette_container">
                     <div class="roulette">
-                        <img src="../src/img/chomp.png" />
+                        <img id="stop" src="../src/img/chomp.png" />
                         <img src="../src/img/coin.png" />
                         <img src="../src/img/flower.png" />
                         <img src="../src/img/mshroom.png" />
                         <img src="../src/img/star.png" />
                     </div>
                     <div class="roulette">
-                        <img src="../src/img/chomp.png" />
+                        <img id="stop" src="../src/img/chomp.png" />
                         <img src="../src/img/coin.png" />
                         <img src="../src/img/flower.png" />
                         <img src="../src/img/mshroom.png" />
                         <img src="../src/img/star.png" />
                     </div>
                     <div class="roulette">
-                        <img src="../src/img/chomp.png" />
+                        <img id="stop" src="../src/img/chomp.png" />
                         <img src="../src/img/coin.png" />
                         <img src="../src/img/flower.png" />
                         <img src="../src/img/mshroom.png" />
                         <img src="../src/img/star.png" />
                     </div>
                 </div>
-                <div class="btn_container">
-                    <p>
-                        <!--<button id="start"> START </button>-->
-                        <button id="stop"> STOP </button>
-                        <!-- <button id="get" onclick="getwin()"> GET </button> -->
-                    </p>
-                    <label>Votre mise</label>
-                    <input id="mise" value="10" type="text"> </input>
-
-                    <p>Vous avez gagnée: <b><span id="nbggwin"></b></span></p>
-
-                    <p>Vous avez sur votre compte :<b><span id="combienatu"></span></b></p>
+                <br>
+                <br>
+                <div class="stop">
+                    <input type="submit" id="stopage" value="Stop">
                 </div>
+            </div>
+
+            <!-- <div class="box">
+                <h1>Votre mise :</h1>
+                <form>
+
+                </form>
+
+            </div> -->
+
+            <div class="btn_container">
+                <p>
+                    <!--<button id="start"> START </button>-->
+
+                    <!-- <button id="get" onclick="getwin()"> GET </button> -->
+                </p>
+                <label>Votre mise</label>
+                <input id="mise" value="10" type="text"> </input>
+
+                <p>Vous avez gagnée: <b><span id="nbggwin"></b></span></p>
+
+                <p>Vous avez sur votre compte :<b><span id="combienatu"></span></b></p>
             </div>
             <div class="box">
                 <h1>Les règles du jackpot</h1>
@@ -68,6 +83,7 @@
                     - Si le joueur tombe sur trois symboles identiques, sa mise sera multiplié par 2
                 </p>
             </div>
+        </div>
 
 
 </body>

@@ -4,7 +4,7 @@
   "description": "project d'année sio 2022/23",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon index.js --ignore /src",
+    "test": "nodemon index.js --ignore ./src",
     "start": "node index.js",
     "deploy": "node ftpdeploy.js"
   },
