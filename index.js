@@ -322,39 +322,41 @@ app.post("/updategame", function (req, res) {
 
 
 app.post('/create', function (req, res) {
-
+console.log(req.body)
     //Vérification de la sécurité de l'entrée utilisateur avec validator.
     let prenom = validate(req.body.prenom);
-    if (prenom == "" || !prenom) {
+    if (prenom == "" || !prenom || prenom == null || prenom == undefined) {
         prenom = makeid(5) // si le prenom est vide ou n'existe pas, on lui donne un prenom aléatoire
     }
     let username = validate(req.body.username);
     let password = hash3(req.body.password); //hashage du mot de passe
+    let confirpass = hash3(req.body.verifpassword);
+    let age = validate(req.body.dateNaissance);
 
 
     // Vérification de l'existence du compte
-    if (username && password) {
+    if (username && password && age && prenom && (password == confirpass)) { // si les champs sont remplis
+        console.log("okj")
         //Exemple d'insertion sql : INSERT INTO `accounts` (`id`, `username`, `password`, `highscore1`) VALUES (1, 'test', 'test', 0);
-        connection.query(`INSERT INTO \`Joueur\`(\`prenom\`, \`username\`, \`password\`) VALUES ('${prenom}','${username}', '${password}')`, function (error, results, fields) {
+        connection.query(`INSERT INTO \`Joueur\`(\`prenom\`, \`username\`, \`age\`, \`password\`) VALUES (?,?,?,?)`,[prenom,username,age,password],function (error, results, fields) {
             // If there is an issue with the query, output the error
             if (error) {
                 console.log(error);
-                return res.redirect("/login"); // Si erreur, on redirige vers la page de connexion
+                return res.json({ "create": `${err}` })
             }
-
             if (results.protocol41 == true) { // Si le compte existe déjà on enregistre son username dans la session, et fait que il soit loggé.
                 req.session.loggedin = true;
                 req.session.username = username;
                 // redirection vers la page de jeu
-                res.redirect('/play');
+                res.json({ "create": true })
             } else {
-                res.redirect("/create")
+                res.json({ "create": false })
             }
             res.end();
         });
 
     } else {
-        res.redirect("/404") // Si erreur, on redirige vers la page de connexion
+        res.json({ "create": false })
     }
 });
 

@@ -10,7 +10,7 @@ window.onload = function () {
 async function formenvoie() {
 
     let username = document.getElementById("username").value;
-    let password = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
     let err = document.getElementById("err");
 
     const loc = location.origin; // Avoir l'adresse du site sans /

@@ -12,20 +12,23 @@
             <h1>Inscription</h1>
             <p id="error"></p>
             <br>
-            <form id="myForm" action="/create" method="post">
-
+            <form id="myForm">
+                <div>
+                    <p id="err"></p>
+                    <br>
+                </div>
                 <div class="unInput">
-                    <input for="nameInput" type="text" name="prenom" autocomplete="off" required autofocus>
+                    <input for="nameInput" type="text" id="prenom" name="prenom" autocomplete="off" required autofocus>
                     <label id="prenom">Prénom</label>
                 </div>
 
                 <div class="unInput">
-                    <input type="number" id="age" name="dateNaissance" autocomplete="off" required>
+                    <input type="number" id="dateNaissance" name="dateNaissance" autocomplete="off" required>
                     <label>Age</label>
                 </div>
 
                 <div class="unInput">
-                    <input type="text" name="username" autocomplete="off" required>
+                    <input type="text" id="username" name="username" autocomplete="off" required>
                     <label>Nom d'utilisateur</label>
                 </div>
 
@@ -35,7 +38,7 @@
                 </div>
 
                 <div class="unInput">
-                    <input type="password" name="ConfirmerMotDePasse" autocomplete="off" required>
+                    <input type="password" id="ConfirmerMotDePasse" name="ConfirmerMotDePasse" autocomplete="off" required>
                     <label>Confirmer votre mot de passe</label>
                 </div>
 
