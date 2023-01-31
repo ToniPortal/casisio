@@ -1,6 +1,6 @@
 ![UpOrDown](https://img.shields.io/website-up-down-green-red/http/casinosio.alwaysdata.net)
 ![Watcher](https://img.shields.io/github/watchers/Bouftout/casisio?style=social)
-<h1 align="center">Compagnion cube</h1>
+<h1 align="center">Casisio</h1>
 
 <p align="center">Ce site a été développé par 4 développeurs : Maissa Abdelli, Clément Gault, Julien Bechir, Toni Pastré. Ce site est conçu pour les clients qui veulent jouer au casino
 sans pour autant utiliser de la monnaie réelle au risque de perdre réellement leur argent. Les développeurs ont fait en sorte de créer une monnaie virtuelle, 
