@@ -1,0 +1,40 @@
+name: Auto Update with npm
+
+on:
+  push:
+    paths:
+      - 'package.json'
+
+jobs:
+  auto-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run npm update
+        run: npm update
+
+      - name: Configure Git
+        run: |
+          git config user.name "ToniPortal"
+          git config user.email "pastre.toni@gmail.com"
+
+      - name: Commit changes
+        run: |
+          git add -A
+          git commit -m "Auto-update dependencies [skip ci]"
+      
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
